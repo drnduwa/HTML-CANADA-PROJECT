@@ -66,6 +66,7 @@
         <button class="nav-link" data-page="applications">Applications</button>
         <button class="nav-link" data-page="documents">Documents</button>
         <button class="nav-link" data-page="account">Account</button>
+  <button class="nav-link" id="open-profile-modal">My Profile</button>
   <button class="nav-link" data-page="faq">FAQ & Help Center</button>
       </nav>
 
@@ -130,6 +131,17 @@
                 <li class="muted">No activity yet.</li>
               </ul>
             </div>
+
+            <div class="card" id="montreal-info-card" style="max-width:400px;margin:24px auto 0 auto;box-shadow:0 8px 32px #1e3a8a22;">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/197/197569.png" alt="Montreal Icon" style="width:48px;height:48px;border-radius:8px;box-shadow:0 2px 8px #1e3a8a22;">
+    <div>
+      <h3 style="margin:0;color:#1E3A8A;font-size:1.3em;">Montreal, Canada</h3>
+      <div id="montreal-time" style="font-size:1.1em;color:#38BDF8;margin-top:2px;"></div>
+      <div id="montreal-temp" style="font-size:1.1em;color:#F43F5E;margin-top:2px;"></div>
+    </div>
+  </div>
+</div>
           </div>
         </section>
         <section id="page-faq-view" class="page">
@@ -173,6 +185,37 @@
             </div>
           </div>
         </section>
+
+        <section id="page-profile-view" class="page">
+  <div class="container">
+    <h2>Student Profile</h2>
+    <form id="profile-form" class="card" style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:14px;">
+      <label>Full Name
+        <input type="text" id="profile-fullname" required />
+      </label>
+      <label>Date of Birth
+        <input type="date" id="profile-dob" required />
+      </label>
+      <label>City of Birth
+        <input type="text" id="profile-citybirth" required />
+      </label>
+      <label>Country of Origin
+        <input type="text" id="profile-countryorigin" required />
+      </label>
+      <label>Country of Residence
+        <input type="text" id="profile-countryresidence" required />
+      </label>
+      <label>Year of Completion of High School
+        <input type="number" id="profile-highschoolyear" min="1950" max="2025" required />
+      </label>
+      <label>Passport or ID Number
+        <input type="text" id="profile-idnumber" required />
+      </label>
+      <button type="submit" class="btn primary large">Save Profile</button>
+      <div id="profile-status" class="muted"></div>
+    </form>
+  </div>
+</section>
       </main>
     </div>
   </div>
@@ -209,6 +252,48 @@
     </div>
   </div>
 
+  <!-- Student Profile Modal -->
+<div id="modal-profile" class="modal hidden" aria-hidden="true">
+  <div class="modal-backdrop" data-close="true"></div>
+  <div class="modal-card small">
+    <div class="modal-header">
+      <h3>Student Profile</h3>
+    </div>
+    <div class="modal-body" id="profile-modal-body"></div>
+    <div class="modal-footer">
+      <button id="close-profile-modal" class="btn ghost">Close</button>
+    </div>
+  </div>
+</div>
+
   <script type="module" src="app.js"></script>
+<script>
+function updateMontrealTime() {
+  const now = new Date();
+  // Montreal is UTC-4 (EDT) in summer, UTC-5 (EST) in winter
+  const utcOffset = -4; // For simplicity, use -4
+  const montrealTime = new Date(now.getTime() + (utcOffset - now.getTimezoneOffset() / 60) * 3600 * 1000);
+  const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('montreal-time').textContent = montrealTime.toLocaleString('en-CA', options);
+}
+async function updateMontrealTemp() {
+  try {
+    // Open-Meteo API for Montreal (latitude: 45.5017, longitude: -73.5673)
+    const resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=45.5017&longitude=-73.5673&current_weather=true');
+    const data = await resp.json();
+    if (data && data.current_weather && typeof data.current_weather.temperature === 'number') {
+      document.getElementById('montreal-temp').textContent = `Temperature: ${data.current_weather.temperature}°C`;
+    } else {
+      document.getElementById('montreal-temp').textContent = 'Temperature: N/A';
+    }
+  } catch (e) {
+    document.getElementById('montreal-temp').textContent = 'Temperature: N/A';
+  }
+}
+updateMontrealTime();
+updateMontrealTemp();
+setInterval(updateMontrealTime, 1000 * 60); // Update time every minute
+setInterval(updateMontrealTemp, 1000 * 60 * 10); // Update temp every 10 minutes
+</script>
 </body>
 </html>

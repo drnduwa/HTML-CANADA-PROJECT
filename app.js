@@ -72,6 +72,13 @@ const authTitle = document.getElementById("auth-title");
 const toggleAuth = document.getElementById("toggle-auth");
 const authError = document.getElementById("auth-error");
 
+const openProfileModalBtn = document.getElementById('open-profile-modal');
+const modalProfile = document.getElementById('modal-profile');
+const profileModalBody = document.getElementById('profile-modal-body');
+const closeProfileModalBtn = document.getElementById('close-profile-modal');
+const profileForm = document.getElementById('profile-form');
+const profileStatus = document.getElementById('profile-status');
+
 /* ============ STATE ============= */
 let isSignUp = false;
 let currentUser = null;
@@ -171,6 +178,45 @@ function closeCheckModal() {
   modalCheck.classList.add("hidden");
   modalCheck.setAttribute("aria-hidden", "true");
 }
+function showProfileModal(profile) {
+  modalProfile.classList.remove('hidden');
+  modalProfile.setAttribute('aria-hidden', 'false');
+  if (profile && isProfileComplete(profile)) {
+    profileModalBody.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div><strong>Full Name:</strong> ${profile.fullname}</div>
+        <div><strong>Date of Birth:</strong> ${profile.dob}</div>
+        <div><strong>City of Birth:</strong> ${profile.citybirth}</div>
+        <div><strong>Country of Origin:</strong> ${profile.countryorigin}</div>
+        <div><strong>Country of Residence:</strong> ${profile.countryresidence}</div>
+        <div><strong>Year of High School Completion:</strong> ${profile.highschoolyear}</div>
+        <div><strong>Passport/ID Number:</strong> ${profile.idnumber}</div>
+      </div>
+    `;
+  } else {
+    profileModalBody.innerHTML = '<div class="muted">Profile incomplete. Please fill in all fields.</div>';
+  }
+}
+function hideProfileModal() {
+  modalProfile.classList.add('hidden');
+  modalProfile.setAttribute('aria-hidden', 'true');
+}
+if (openProfileModalBtn) {
+  openProfileModalBtn.addEventListener('click', () => {
+    if (!currentUser || !db) return;
+    const profileRef = ref(db, `profiles/${currentUser.uid}`);
+    onValue(profileRef, (snapshot) => {
+      const profile = snapshot.val();
+      showProfileModal(profile);
+    }, { onlyOnce: true });
+  });
+}
+if (closeProfileModalBtn) {
+  closeProfileModalBtn.addEventListener('click', hideProfileModal);
+}
+document.querySelectorAll('.modal-backdrop').forEach(el => {
+  el.addEventListener('click', hideProfileModal);
+});
 
 /* backdrop close */
 document.querySelectorAll(".modal-backdrop").forEach(el => {
@@ -188,10 +234,9 @@ const applySteps = [
   { id:1, title:'Personal', render: applyStepPersonal },
   { id:2, title:'Academic', render: applyStepAcademic },
   { id:3, title:'Program', render: applyStepProgram },
-  { id:4, title:'Finance', render: applyStepFinance },
-  { id:5, title:'Immigration', render: applyStepVisa },
-  { id:6, title:'Documents', render: applyStepDocs },
-  { id:7, title:'Review', render: applyStepReview }
+  { id:4, title:'Finance', render: applyStepVisa },
+  { id:5, title:'Documents', render: applyStepDocs },
+  { id:6, title:'Review', render: applyStepReview }
 ];
 let applyState = { step:1, form:{} };
 
@@ -620,4 +665,59 @@ if (faqSection) {
   loadFaqFromFirebase();
   seedFaqToFirebase();
   faqSearch.addEventListener('input', renderFaqList);
+}
+
+// ========== Student Profile Logic ==========
+const profileFields = [
+  'fullname', 'dob', 'citybirth', 'countryorigin', 'countryresidence', 'highschoolyear', 'idnumber'
+];
+function getProfileFromForm() {
+  return {
+    fullname: document.getElementById('profile-fullname').value.trim(),
+    dob: document.getElementById('profile-dob').value,
+    citybirth: document.getElementById('profile-citybirth').value.trim(),
+    countryorigin: document.getElementById('profile-countryorigin').value.trim(),
+    countryresidence: document.getElementById('profile-countryresidence').value.trim(),
+    highschoolyear: document.getElementById('profile-highschoolyear').value.trim(),
+    idnumber: document.getElementById('profile-idnumber').value.trim()
+  };
+}
+function isProfileComplete(profile) {
+  return profileFields.every(f => profile[f] && profile[f].length > 0);
+}
+function showProfilePrompt() {
+  navigateToPage('profile');
+  profileStatus.textContent = 'Please complete your student profile to continue.';
+}
+function loadProfile(userId) {
+  if (!db || !userId) return;
+  const profileRef = ref(db, `profiles/${userId}`);
+  onValue(profileRef, (snapshot) => {
+    const profile = snapshot.val();
+    if (!profile || !isProfileComplete(profile)) {
+      showProfilePrompt();
+      autoPopupProfileIfIncomplete(profile || {});
+    }
+  });
+}
+if (profileForm) {
+  profileForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!currentUser || !db) {
+      profileStatus.textContent = 'You must be signed in to save your profile.';
+      return;
+    }
+    const profile = getProfileFromForm();
+    if (!isProfileComplete(profile)) {
+      profileStatus.textContent = 'Please fill in all fields.';
+      return;
+    }
+    try {
+      await set(ref(db, `profiles/${currentUser.uid}`), profile);
+      profileStatus.textContent = 'Profile saved successfully!';
+      hideProfileModal();
+    } catch (err) {
+      profileStatus.textContent = 'Error saving profile: ' + (err.message || err);
+    }
+  });
 }
