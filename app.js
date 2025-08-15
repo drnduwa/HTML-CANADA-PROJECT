@@ -79,6 +79,12 @@ const closeProfileModalBtn = document.getElementById('close-profile-modal');
 const profileForm = document.getElementById('profile-form');
 const profileStatus = document.getElementById('profile-status');
 
+const programSearchSelect = document.getElementById('program-search-select');
+const programSearchBtn = document.getElementById('program-search-btn');
+const programSearchResults = document.getElementById('program-search-results');
+let allPrograms = [];
+let allData = [];
+
 /* ============ STATE ============= */
 let isSignUp = false;
 let currentUser = null;
@@ -719,5 +725,64 @@ if (profileForm) {
     } catch (err) {
       profileStatus.textContent = 'Error saving profile: ' + (err.message || err);
     }
+  });
+}
+
+/* Program search logic */
+async function loadProgramsDropdown() {
+  try {
+    const res = await fetch('canadafulldataset.json');
+    const data = await res.json();
+    allData = data;
+    const uniquePrograms = [...new Set(data.map(item => item.Program))].sort();
+    allPrograms = uniquePrograms;
+    programSearchSelect.innerHTML = uniquePrograms.map(p => `<option value="${p}">${p}</option>`).join('');
+  } catch (err) {
+    programSearchSelect.innerHTML = '<option>Error loading programs</option>';
+  }
+}
+loadProgramsDropdown();
+
+function searchUniversitiesByProgram(programName) {
+  programSearchResults.innerHTML = '<div class="muted">Searching...</div>';
+  const results = allData.filter(item => item.Program === programName);
+  if (results.length === 0) {
+    programSearchResults.innerHTML = '<div class="muted">No universities found for this program.</div>';
+    return;
+  }
+  programSearchResults.innerHTML = `
+    <h4 style="margin-bottom:10px;">${programName}</h4>
+    <table class="table" style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>University</th>
+          <th>Application Fee</th>
+          <th>Yearly Tuition</th>
+          <th>City</th>
+          <th>Province</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${results.map(r => `
+          <tr>
+            <td>${r.University}</td>
+            <td>${r["Application / Registration Fee (CAD)"]}</td>
+            <td>${r["Yearly Tuition for International Students (CAD)"] ?? '-'}</td>
+            <td>${r.City}</td>
+            <td>${r["Province/Territory"]}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+if (programSearchBtn) {
+  programSearchBtn.addEventListener('click', () => {
+    const val = programSearchSelect.value;
+    if (!val) {
+      programSearchResults.innerHTML = '<div class="muted">Please select a program.</div>';
+      return;
+    }
+    searchUniversitiesByProgram(val);
   });
 }

@@ -142,6 +142,15 @@
     </div>
   </div>
 </div>
+
+<div class="dashboard-card" style="margin-bottom:24px;">
+  <h3>Search Universities by Program</h3>
+  <div style="display:flex;gap:10px;align-items:center;">
+    <select id="program-search-select" style="flex:1;padding:8px;"></select>
+    <button id="program-search-btn" class="btn primary">Search</button>
+  </div>
+  <div id="program-search-results" style="margin-top:18px;"></div>
+</div>
           </div>
         </section>
         <section id="page-faq-view" class="page">
@@ -270,11 +279,13 @@
 <script>
 function updateMontrealTime() {
   const now = new Date();
-  // Montreal is UTC-4 (EDT) in summer, UTC-5 (EST) in winter
-  const utcOffset = -4; // For simplicity, use -4
-  const montrealTime = new Date(now.getTime() + (utcOffset - now.getTimezoneOffset() / 60) * 3600 * 1000);
-  const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById('montreal-time').textContent = montrealTime.toLocaleString('en-CA', options);
+  // Use Intl.DateTimeFormat for accurate Montreal time
+  const options = {
+    timeZone: 'America/Montreal',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  };
+  document.getElementById('montreal-time').textContent = new Intl.DateTimeFormat('en-CA', options).format(now);
 }
 async function updateMontrealTemp() {
   try {
