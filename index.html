@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JAEKERNA — Study in Canada</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="logo.png" />
+</head>
+<body>
+  <!-- LOGIN / SIGNUP PAGE -->
+  <div id="page-auth" class="page-auth">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <img src="logo.png" alt="logo" class="auth-flag">
+        <div>
+          <h1>JAEKERNA AGENCY</h1>
+
+          <div class="muted">
+
+<h2>Your Trusted Partner for Studying in Canada</h2> </br>
+<strong>Helping African students achieve their dreams in Canada</strong>
+<p>Guidance, Assessment & application support for your academic journey</p></div>
+<img src = "pexels-olly-3769021.jpg" width="70%" height="50%"alt="student">
+        </div>
+      </div>
+
+      <form id="auth-form" class="auth-form">
+        <h2 id="auth-title">Sign In</h2>
+        <label>Email
+          <input id="email" type="email" required placeholder="you@example.com" />
+        </label>
+        <label>Password
+          <input id="password" type="password" required placeholder="At least 6 characters" />
+        </label>
+
+        <div class="auth-actions">
+          <button id="auth-submit" class="btn primary">Sign In</button>
+          <button id="toggle-auth" type="button" class="btn ghost">Create account</button>
+        </div>
+
+        <div id="auth-error" class="error hidden"></div>
+
+        <div class="auth-foot muted">
+          By signing up you agree to JAEKERNA's Terms & Privacy.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD (hidden until auth) -->
+  <div id="page-dashboard" class="dashboard-root hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="brand">
+  <img src="logo.png" alt="logo" class="brand-flag">
+        <div>
+          <div class="brand-title">JAEKERNA</div>
+          <div class="brand-sub">Study in Canada</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-link active" data-page="dashboard">Dashboard</button>
+        <button class="nav-link" data-action="openApply">Apply</button>
+        <button class="nav-link" data-action="openCheck">Check Eligibility</button>
+        <button class="nav-link" data-page="applications">Applications</button>
+        <button class="nav-link" data-page="documents">Documents</button>
+        <button class="nav-link" data-page="account">Account</button>
+  <button class="nav-link" data-page="faq">FAQ & Help Center</button>
+      </nav>
+
+      <div class="sidebar-footer">
+  <button id="signout" class="btn accent large" style="width:100%;font-size:18px;">Sign Out</button>
+      </div>
+
+      <button id="sidebar-collapse" class="sidebar-collapse" aria-label="Toggle menu">☰</button>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="page-title">Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="user-info">
+            <div id="user-email" class="user-email">Not signed in</div>
+            <div class="avatar" id="user-avatar">J</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Pages -->
+      <main class="content">
+        <section id="page-dashboard-view" class="page page--active">
+          <div class="container">
+            <div class="hero">
+              <div>
+                <h2>Welcome to JAEKERNA</h2>
+                <p class="muted">Assisting international students to apply and prepare for studying in Canada.</p>
+              </div>
+              <div>
+                <img src="logo.png" alt="JAEKERNA Logo" style="max-width:180px;display:block;margin:auto;box-shadow:0 2px 8px #1e3a8a22;border-radius:12px;">
+              </div>
+            </div>
+
+            <div class="grid stats-grid">
+              <div class="card stat">
+                <div class="stat-title">Applications</div>
+                <div class="stat-value" id="stat-apps">—</div>
+                <div class="stat-sub">Submitted by you</div>
+              </div>
+              <div class="card stat">
+                <div class="stat-title">Drafts</div>
+                <div class="stat-value" id="stat-drafts">—</div>
+                <div class="stat-sub">Saved progress</div>
+              </div>
+              <div class="card stat">
+                <div class="stat-title">Qualification Checks</div>
+                <div class="stat-value" id="stat-checks">—</div>
+                <div class="stat-sub">Total checks</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Recent activity</h3>
+                <div class="muted">Latest 6 items</div>
+              </div>
+              <ul id="activity-list" class="activity-list">
+                <li class="muted">No activity yet.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section id="page-faq-view" class="page">
+          <div class="container">
+            <h2>FAQ & Help Center</h2>
+            <div class="faq-controls">
+              <input id="faq-search" type="text" placeholder="Search FAQs (e.g. visa, IELTS, deadline)..." style="width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1.5px solid #e6e9ef;">
+              <div id="faq-categories" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;"></div>
+            </div>
+            <div id="faq-list" class="faq-list"></div>
+            <div style="margin-top:24px;text-align:center;">
+              <span>Still have questions? </span>
+              <a href="https://wa.me/26879421083" class="btn accent small" style="display:inline-block;" target="_blank" rel="noopener">Contact us on WhatsApp</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-applications-view" class="page">
+          <div class="container">
+            <h2>My Applications</h2>
+            <div id="applications-table" class="card table-card">
+              <div class="muted">Loading applications…</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-documents-view" class="page">
+          <div class="container">
+            <h2>Documents</h2>
+            <div class="card">
+              <p class="muted">Upload and manage documents (coming soon).</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-account-view" class="page">
+          <div class="container">
+            <h2>Account</h2>
+            <div class="card">
+              <p id="account-info" class="muted">Account information will appear here.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- APPLY Modal -->
+  <div id="modal-apply" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Application Assistant</h3>
+        <div class="progress-line"><div id="apply-progress" class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="modal-body" id="apply-steps"></div>
+      <div class="modal-footer">
+        <button id="apply-back" class="btn ghost">Back</button>
+        <button id="apply-next" class="btn primary">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECK Modal -->
+  <div id="modal-check" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card small">
+      <div class="modal-header">
+        <h3>Eligibility Checker</h3>
+        <div id="check-step-indicator" class="muted">Step 1 / 3</div>
+      </div>
+      <div class="modal-body" id="check-steps"></div>
+      <div class="modal-footer">
+        <button id="check-back" class="btn ghost">Back</button>
+        <button id="check-next" class="btn primary">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+[
+  {
+    "name": "University of Toronto",
+    "city": "Toronto",
+    "website": "https://www.utoronto.ca/",
+    "acceptsInternational": true,
+    "yearlyFee": 61000,
+    "applicationFee": 180,
+    "deadline": "2025-01-15",
+    "programs": [
+      {
+        "name": "Computer Science BSc",
+        "requirements": "High school diploma, English, Calculus, 85%+ average",
+        "yearlyFee": 61000,
+        "applicationFee": 180,
+        "deadline": "2025-01-15"
+      },
+      {
+        "name": "Engineering BASc",
+        "requirements": "High school diploma, Physics, Chemistry, Math, 88%+ average",
+        "yearlyFee": 65000,
+        "applicationFee": 180,
+        "deadline": "2025-01-15"
+      }
+    ]
+  },
+  {
+    "name": "University of British Columbia",
+    "city": "Vancouver",
+    "website": "https://www.ubc.ca/",
+    "acceptsInternational": true,
+    "yearlyFee": 45000,
+    "applicationFee": 125,
+    "deadline": "2025-01-15",
+    "programs": [
+      {
+        "name": "Commerce BCom",
+        "requirements": "High school diploma, English, Math, 85%+ average",
+        "yearlyFee": 45000,
+        "applicationFee": 125,
+        "deadline": "2025-01-15"
+      },
+      {
+        "name": "Biology BSc",
+        "requirements": "High school diploma, Biology, Chemistry, Math, 80%+ average",
+        "yearlyFee": 42000,
+        "applicationFee": 125,
+        "deadline": "2025-01-15"
+      }
+    ]
+  },
+  {
+    "name": "McGill University",
+    "city": "Montreal",
+    "website": "https://www.mcgill.ca/",
+    "acceptsInternational": true,
+    "yearlyFee": 51000,
+    "applicationFee": 125,
+    "deadline": "2025-01-15",
+    "programs": [
+      {
+        "name": "Arts BA",
+        "requirements": "High school diploma, English, 80%+ average",
+        "yearlyFee": 51000,
+        "applicationFee": 125,
+        "deadline": "2025-01-15"
+      },
+      {
+        "name": "Science BSc",
+        "requirements": "High school diploma, Math, Science, 85%+ average",
+        "yearlyFee": 53000,
+        "applicationFee": 125,
+        "deadline": "2025-01-15"
+      }
+    ]
+  }
+]

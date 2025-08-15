@@ -1,0 +1,820 @@
+[
+  {
+    "program_id": "UG-UOFT-CS-001",
+    "university": "University of Toronto",
+    "campus": "St. George (Toronto)",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Science (Honours) – Computer Science",
+    "min_gpa": null,
+    "min_percentage": null,
+    "prerequisite_subjects": [
+      "High school diploma; strong mathematics background (Calculus recommended)"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 89
+      },
+      "Duolingo": {
+        "overall": 120
+      }
+    },
+    "additional_requirements": [
+      "Supplementary application may be required depending on stream"
+    ],
+    "tuition_fee_cad_per_year": "≈62,000",
+    "source_urls": [
+      "https://www.utoronto.ca/admissions/"
+    ]
+  },
+  {
+    "program_id": "UG-UBC-BIO-001",
+    "university": "University of British Columbia",
+    "campus": "Vancouver",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Science – Biology",
+    "min_gpa": null,
+    "min_percentage": 75,
+    "prerequisite_subjects": [
+      "High school diploma (academic)",
+      "Biology and Chemistry recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5,
+        "min_band": 6.0
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "49,548–64,651",
+    "source_urls": [
+      "https://you.ubc.ca/applying-ubc/requirements/"
+    ]
+  },
+  {
+    "program_id": "UG-MCG-MECH-001",
+    "university": "McGill University",
+    "campus": "Montreal",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Engineering – Mechanical Engineering",
+    "min_gpa": null,
+    "min_percentage": 85,
+    "prerequisite_subjects": [
+      "Physics",
+      "Chemistry",
+      "Calculus"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "Faculty application requirements"
+    ],
+    "tuition_fee_cad_per_year": "30,000–45,000",
+    "source_urls": [
+      "https://www.mcgill.ca/undergraduate-admissions/programs"
+    ]
+  },
+  {
+    "program_id": "UG-UALB-BCOM-ACC-001",
+    "university": "University of Alberta",
+    "campus": "Edmonton",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Commerce – Accounting",
+    "min_gpa": null,
+    "min_percentage": 80,
+    "prerequisite_subjects": [
+      "High school diploma; Math recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "Faculty-specific requirements may apply"
+    ],
+    "tuition_fee_cad_per_year": "28,000–40,000",
+    "source_urls": [
+      "https://www.ualberta.ca/admissions/index.html"
+    ]
+  },
+  {
+    "program_id": "UG-MCM-ARTSCI-001",
+    "university": "McMaster University",
+    "campus": "Hamilton",
+    "level": "Undergraduate",
+    "program_name": "Arts & Science (Honours)",
+    "min_gpa": null,
+    "min_percentage": 88,
+    "prerequisite_subjects": [
+      "ENG4U",
+      "MHF4U or MCV4U recommended",
+      "4 additional U/M level courses"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "Supplementary application"
+    ],
+    "tuition_fee_cad_per_year": "33,000–38,000",
+    "source_urls": [
+      "https://artsci.mcmaster.ca/"
+    ]
+  },
+  {
+    "program_id": "UG-WATR-BMATH-001",
+    "university": "University of Waterloo",
+    "campus": "Waterloo",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Mathematics – Computer Science/Mathematics",
+    "min_gpa": null,
+    "min_percentage": 85,
+    "prerequisite_subjects": [
+      "Advanced Mathematics (Calculus), Physics recommended for some streams"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 86
+      }
+    },
+    "additional_requirements": [
+      "Competitive admission; co-op options"
+    ],
+    "tuition_fee_cad_per_year": "45,000–60,000",
+    "source_urls": [
+      "https://uwaterloo.ca/future-students/"
+    ]
+  },
+  {
+    "program_id": "UG-UOTTAWA-NURS-001",
+    "university": "University of Ottawa",
+    "campus": "Ottawa",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Science in Nursing (BScN)",
+    "min_gpa": null,
+    "min_percentage": 80,
+    "prerequisite_subjects": [
+      "Biology, Chemistry, English"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0,
+        "min_band": 6.5
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "Criminal record check, immunization records (for admission to clinical placements)"
+    ],
+    "tuition_fee_cad_per_year": "30,000–45,000",
+    "source_urls": [
+      "https://www.uottawa.ca/undergraduate-admissions/"
+    ]
+  },
+  {
+    "program_id": "UG-DAL-BHSC-001",
+    "university": "Dalhousie University",
+    "campus": "Halifax",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Health Sciences",
+    "min_gpa": null,
+    "min_percentage": 75,
+    "prerequisite_subjects": [
+      "English, Pre-Calculus Math, three additional academic subjects"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "25,000–35,000",
+    "source_urls": [
+      "https://www.dal.ca/admissions.html"
+    ]
+  },
+  {
+    "program_id": "UG-YORK-PSY-001",
+    "university": "York University",
+    "campus": "Toronto",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Arts – Psychology",
+    "min_gpa": null,
+    "min_percentage": 75,
+    "prerequisite_subjects": [
+      "High school diploma; English proficiency"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 88
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "28,000–35,000",
+    "source_urls": [
+      "https://futurestudents.yorku.ca/"
+    ]
+  },
+  {
+    "program_id": "UG-SFU-DS-001",
+    "university": "Simon Fraser University",
+    "campus": "Burnaby",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Science – Data Science",
+    "min_gpa": null,
+    "min_percentage": 80,
+    "prerequisite_subjects": [
+      "Mathematics, Programming recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "27,000–38,000",
+    "source_urls": [
+      "https://www.sfu.ca/students/admission.html"
+    ]
+  },
+  {
+    "program_id": "UG-CONC-BFA-001",
+    "university": "Concordia University",
+    "campus": "Montreal",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Fine Arts – Design",
+    "min_gpa": null,
+    "min_percentage": 70,
+    "prerequisite_subjects": [
+      "Portfolio required; art/design background recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 86
+      }
+    },
+    "additional_requirements": [
+      "Portfolio submission, possibly interview"
+    ],
+    "tuition_fee_cad_per_year": "20,000–30,000",
+    "source_urls": [
+      "https://www.concordia.ca/admissions.html"
+    ]
+  },
+  {
+    "program_id": "UG-CARL-ARCH-001",
+    "university": "Carleton University",
+    "campus": "Ottawa",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Architectural Studies",
+    "min_gpa": null,
+    "min_percentage": 75,
+    "prerequisite_subjects": [
+      "Mathematics, Art/Design background recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "Portfolio"
+    ],
+    "tuition_fee_cad_per_year": "25,000–35,000",
+    "source_urls": [
+      "https://carleton.ca/future-students/"
+    ]
+  },
+  {
+    "program_id": "UG-MAN-BSC-AGR-001",
+    "university": "University of Manitoba",
+    "campus": "Winnipeg",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Science – Agriculture",
+    "min_gpa": null,
+    "min_percentage": 70,
+    "prerequisite_subjects": [
+      "Biology, Chemistry, Math recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 86
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "18,000–28,000",
+    "source_urls": [
+      "https://umanitoba.ca/admissions/"
+    ]
+  },
+  {
+    "program_id": "UG-MEM-MARBIO-001",
+    "university": "Memorial University of Newfoundland",
+    "campus": "St. John's",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Science – Marine Biology",
+    "min_gpa": null,
+    "min_percentage": 70,
+    "prerequisite_subjects": [
+      "Biology, Chemistry"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 88
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "11,000–16,000",
+    "source_urls": [
+      "https://www.mun.ca/undergraduate_admissions/"
+    ]
+  },
+  {
+    "program_id": "UG-RYER-JOUR-001",
+    "university": "Toronto Metropolitan University (formerly Ryerson)",
+    "campus": "Toronto",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Journalism",
+    "min_gpa": null,
+    "min_percentage": 75,
+    "prerequisite_subjects": [
+      "English, communication skills; portfolio may be requested"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 88
+      }
+    },
+    "additional_requirements": [
+      "Portfolio/sample writing may be required"
+    ],
+    "tuition_fee_cad_per_year": "28,000–36,000",
+    "source_urls": [
+      "https://www.torontomu.ca/admissions/"
+    ]
+  },
+  {
+    "program_id": "PG-UOFT-MPH-001",
+    "university": "University of Toronto",
+    "campus": "St. George (Toronto)",
+    "level": "Postgraduate",
+    "program_name": "Master of Public Health (MPH)",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Bachelor's degree; background in health or related field preferred"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "SOP, LORs, CV; relevant experience preferred"
+    ],
+    "tuition_fee_cad_per_year": "≈45,000",
+    "source_urls": [
+      "https://www.utoronto.ca/graduate-studies/"
+    ]
+  },
+  {
+    "program_id": "PG-UBC-MDS-001",
+    "university": "University of British Columbia",
+    "campus": "Vancouver",
+    "level": "Postgraduate",
+    "program_name": "Master of Data Science (MDS)",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Undergraduate degree with programming & statistics background"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "Application statement, transcripts, possibly interview"
+    ],
+    "tuition_fee_cad_per_year": "57,469",
+    "source_urls": [
+      "https://masterdatascience.ubc.ca/"
+    ]
+  },
+  {
+    "program_id": "PG-MCG-MECH-002",
+    "university": "McGill University",
+    "campus": "Montreal",
+    "level": "Postgraduate",
+    "program_name": "Master of Mechanical Engineering (MEng/MSc)",
+    "min_gpa": 3.3,
+    "prerequisite_subjects": [
+      "Bachelor's in Engineering or related field"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "SOP, LORs, CV"
+    ],
+    "tuition_fee_cad_per_year": "≈29,800",
+    "source_urls": [
+      "https://www.mcgill.ca/gradapplicants/"
+    ]
+  },
+  {
+    "program_id": "PG-WATR-MARCH-001",
+    "university": "University of Waterloo",
+    "campus": "Waterloo",
+    "level": "Postgraduate",
+    "program_name": "Master of Architecture (MArch)",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Bachelor's degree in Architecture or related field; portfolio required"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "Portfolio, statement of intent"
+    ],
+    "tuition_fee_cad_per_year": "30,000–40,000",
+    "source_urls": [
+      "https://uwaterloo.ca/architecture/future-students"
+    ]
+  },
+  {
+    "program_id": "PG-UALB-MBA-001",
+    "university": "University of Alberta",
+    "campus": "Edmonton",
+    "level": "Postgraduate",
+    "program_name": "Master of Business Administration (MBA)",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Undergraduate degree; work experience 2+ years recommended"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "GMAT/GRE recommended, SOP, LORs, interview"
+    ],
+    "tuition_fee_cad_per_year": "≈46,200",
+    "source_urls": [
+      "https://www.ualberta.ca/business/programs/mba.html"
+    ]
+  },
+  {
+    "program_id": "PG-MCM-MSN-001",
+    "university": "McMaster University",
+    "campus": "Hamilton",
+    "level": "Postgraduate",
+    "program_name": "Master of Science in Nursing (MScN)",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Bachelor's in Nursing or related field; RN designation often required"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "LORs, CV, SOP, relevant experience"
+    ],
+    "tuition_fee_cad_per_year": "25,000–40,000",
+    "source_urls": [
+      "https://fhs.mcmaster.ca/graduate_studies/"
+    ]
+  },
+  {
+    "program_id": "PG-UOTT-GA-001",
+    "university": "University of Ottawa",
+    "campus": "Ottawa",
+    "level": "Postgraduate",
+    "program_name": "Master of Global Affairs",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Undergraduate degree; relevant coursework in social sciences preferred"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "SOP, LORs, CV; possible interview"
+    ],
+    "tuition_fee_cad_per_year": "25,000–40,000",
+    "source_urls": [
+      "https://socialsciences.uottawa.ca/graduate-programs/"
+    ]
+  },
+  {
+    "program_id": "PG-DAL-MM-001",
+    "university": "Dalhousie University",
+    "campus": "Halifax",
+    "level": "Postgraduate",
+    "program_name": "Master of Marine Management",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Bachelor's in marine science, environmental science or related field"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "SOP, LORs, CV"
+    ],
+    "tuition_fee_cad_per_year": "20,000–35,000",
+    "source_urls": [
+      "https://www.dal.ca/academics/programs.html"
+    ]
+  },
+  {
+    "program_id": "PG-YORK-MHRM-001",
+    "university": "York University",
+    "campus": "Toronto",
+    "level": "Postgraduate",
+    "program_name": "Master of Human Resources Management (MHRM)",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Undergraduate degree; HR or business background helpful"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "SOP, LORs, CV; possible interview"
+    ],
+    "tuition_fee_cad_per_year": "25,000–40,000",
+    "source_urls": [
+      "https://www.yorku.ca/gradstudies/"
+    ]
+  },
+  {
+    "program_id": "PG-SFU-MCS-001",
+    "university": "Simon Fraser University",
+    "campus": "Burnaby",
+    "level": "Postgraduate",
+    "program_name": "Master of Science – Computing Science",
+    "min_gpa": 3.0,
+    "prerequisite_subjects": [
+      "Undergraduate degree in CS or related field"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "SOP, LORs"
+    ],
+    "tuition_fee_cad_per_year": "22,000–35,000",
+    "source_urls": [
+      "https://www.sfu.ca/gradstudies.html"
+    ]
+  },
+  {
+    "program_id": "PHD-UOFT-CS-001",
+    "university": "University of Toronto",
+    "campus": "St. George (Toronto)",
+    "level": "PhD",
+    "program_name": "PhD in Computer Science",
+    "min_gpa": 3.5,
+    "prerequisite_subjects": [
+      "Master's degree in CS or related field typically required; strong research background"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "Research proposal, LORs, publications (if any), supervisor agreement often required"
+    ],
+    "tuition_fee_cad_per_year": "Graduate tuition often lower; international range 10,000–25,000 (net of scholarships/assistantships)",
+    "source_urls": [
+      "https://www.cs.toronto.edu/graduate/programs"
+    ]
+  },
+  {
+    "program_id": "PHD-UBC-PHY-001",
+    "university": "University of British Columbia",
+    "campus": "Vancouver",
+    "level": "PhD",
+    "program_name": "PhD in Physics",
+    "min_gpa": 3.5,
+    "prerequisite_subjects": [
+      "Master's degree in Physics or equivalent; research experience"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "Research proposal, supervisor contact, LORs"
+    ],
+    "tuition_fee_cad_per_year": "10,000–25,000 (after funding opportunities)",
+    "source_urls": [
+      "https://www.physics.ubc.ca/graduate/"
+    ]
+  },
+  {
+    "program_id": "PHD-MCG-LAW-001",
+    "university": "McGill University",
+    "campus": "Montreal",
+    "level": "PhD",
+    "program_name": "PhD in Law",
+    "min_gpa": 3.5,
+    "prerequisite_subjects": [
+      "Master's in Law or related; strong research background"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 7.0
+      },
+      "TOEFL": {
+        "overall": 100
+      }
+    },
+    "additional_requirements": [
+      "Research proposal, LORs, writing sample"
+    ],
+    "tuition_fee_cad_per_year": "Varies; typical after funding 5,000–20,000",
+    "source_urls": [
+      "https://www.mcgill.ca/gradprogs/"
+    ]
+  },
+  {
+    "program_id": "PG-UALB-PGM-001",
+    "university": "University of Alberta",
+    "campus": "Edmonton",
+    "level": "Postgraduate Certificate",
+    "program_name": "Postgraduate Certificate in Project Management",
+    "min_gpa": 2.7,
+    "prerequisite_subjects": [
+      "Undergraduate degree or equivalent experience"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 90
+      }
+    },
+    "additional_requirements": [
+      "Resume/CV"
+    ],
+    "tuition_fee_cad_per_year": "15,000–25,000 (program length dependent)",
+    "source_urls": [
+      "https://www.ualberta.ca/programs/"
+    ]
+  },
+  {
+    "program_id": "PG-HUM-HUMBER-INTBIZ-001",
+    "university": "Humber College",
+    "campus": "Toronto",
+    "level": "Postgraduate Certificate",
+    "program_name": "Postgraduate Certificate in International Business",
+    "min_gpa": 2.7,
+    "prerequisite_subjects": [
+      "Undergraduate degree or equivalent"
+    ],
+    "language_requirements": {
+      "IELTS": {
+        "overall": 6.5
+      },
+      "TOEFL": {
+        "overall": 88
+      }
+    },
+    "additional_requirements": [
+      "Resume, statement"
+    ],
+    "tuition_fee_cad_per_year": "14,000–20,000",
+    "source_urls": [
+      "https://www.humber.ca/future-students/international"
+    ]
+  },
+  {
+    "program_id": "UG-MONCTON-BBA-001",
+    "university": "Université de Moncton",
+    "campus": "Moncton",
+    "level": "Undergraduate",
+    "program_name": "Bachelor of Business Administration (Administration des affaires) - Français",
+    "min_gpa": null,
+    "min_percentage": 75,
+    "prerequisite_subjects": [
+      "Secondary diploma; math recommended"
+    ],
+    "language_requirements": {
+      "TEF": {
+        "overall": 230
+      },
+      "TCF": {
+        "overall": 300
+      }
+    },
+    "additional_requirements": [],
+    "tuition_fee_cad_per_year": "15,000–20,000",
+    "source_urls": [
+      "https://www.umoncton.ca/inscription"
+    ]
+  }
+]

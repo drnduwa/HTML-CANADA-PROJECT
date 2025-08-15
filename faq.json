@@ -1,0 +1,102 @@
+[
+  {
+    "q": "What is the minimum GPA required for admission to Canadian universities?",
+    "a": "Most universities require at least a GPA of 3.0 on a 4.0 scale (or 70% average) for graduate programs, though this varies by institution and program.",
+    "categories": ["applications"]
+  },
+  {
+    "q": "When should I start my application process?",
+    "a": "Ideally 12–18 months before your intended start date to allow enough time for admissions, visa processing, and travel arrangements.",
+    "categories": ["applications"]
+  },
+  {
+    "q": "Can I apply to more than one university or program at the same time?",
+    "a": "Yes, you can apply to multiple institutions, but each will have its own application fees and requirements.",
+    "categories": ["applications"]
+  },
+  {
+    "q": "What documents are required for a Canadian university application?",
+    "a": "Commonly required documents include: Academic transcripts, Proof of language proficiency (IELTS, TOEFL, TEF, etc.), Passport copy, Statement of Purpose (SOP), Letters of Recommendation, Resume/CV (for graduate programs)",
+    "categories": ["applications","documents"]
+  },
+  {
+    "q": "Can I apply without IELTS or TOEFL?",
+    "a": "Some universities waive English test requirements if your previous education was in English, but most require proof of language proficiency.",
+    "categories": ["applications","documents"]
+  },
+  {
+    "q": "How long does it take to get a Canadian study permit?",
+    "a": "Processing times vary, typically between 4 to 12 weeks, depending on your country and time of year.",
+    "categories": ["visa"]
+  },
+  {
+    "q": "What are the requirements for a Canadian study permit?",
+    "a": "You need: A Letter of Acceptance from a Designated Learning Institution (DLI), Proof of sufficient funds for tuition and living expenses, Valid passport, Proof of language proficiency, Medical exam (if applicable), Police clearance certificate (if applicable)",
+    "categories": ["visa"]
+  },
+  {
+    "q": "Can I work while studying in Canada?",
+    "a": "Yes, most study permits allow you to work up to 20 hours/week during academic sessions and full-time during scheduled breaks.",
+    "categories": ["visa"]
+  },
+  {
+    "q": "Can my family come with me while I study?",
+    "a": "Yes, spouses may be eligible for an open work permit, and children can attend school in Canada.",
+    "categories": ["visa"]
+  },
+  {
+    "q": "How much does it cost to study in Canada?",
+    "a": "Tuition for international students ranges from CAD $15,000 to $35,000 per year, depending on the program and institution. Living expenses can be around CAD $10,000 to $15,000 annually.",
+    "categories": ["tuition"]
+  },
+  {
+    "q": "Are scholarships available for international students?",
+    "a": "Yes, many Canadian universities offer merit-based scholarships, and there are also government-funded awards like the Vanier Canada Graduate Scholarships.",
+    "categories": ["tuition"]
+  },
+  {
+    "q": "How much money must I show for my study permit?",
+    "a": "You must show proof of tuition for one year plus CAD $10,000 for living expenses (or CAD $11,000 if studying in Quebec).",
+    "categories": ["tuition"]
+  },
+  {
+    "q": "What types of student housing are available in Canada?",
+    "a": "Options include on-campus residences, off-campus rentals, and homestays with Canadian families.",
+    "categories": ["accommodation"]
+  },
+  {
+    "q": "How much does student housing cost?",
+    "a": "On-campus housing costs between CAD $3,000–$8,000 per year; off-campus rentals vary widely, starting at CAD $600–$1,200 per month.",
+    "categories": ["accommodation"]
+  },
+  {
+    "q": "What is the cost of living in Canada for students?",
+    "a": "It depends on the city, but students typically spend CAD $800–$1,500 monthly on rent, food, transport, and personal expenses.",
+    "categories": ["accommodation"]
+  },
+  {
+    "q": "What is a Designated Learning Institution (DLI)?",
+    "a": "A DLI is a school approved by a Canadian provincial or territorial government to host international students. You must have an acceptance from a DLI to get a study permit.",
+    "categories": ["documents"]
+  },
+  {
+    "q": "What is a Statement of Purpose (SOP) and why is it important?",
+    "a": "An SOP is a personal essay explaining your academic goals, why you chose Canada, and why you are a good fit for your program. It helps admissions officers understand your motivation.",
+    "categories": ["documents"]
+  },
+  {
+    "q": "Do I need a medical examination for my study permit?",
+    "a": "Yes, if you have lived in certain countries for six months or more in the past year, or if you are studying in health-related fields.",
+    "categories": ["documents"]
+  },
+  {
+    "q": "Can I stay in Canada after my studies?",
+    "a": "Yes, you may be eligible for a Post-Graduation Work Permit (PGWP) which can be valid for up to 3 years depending on your program length.",
+    "categories": ["aftergrad"]
+  },
+  {
+    "q": "How can I become a permanent resident after studying in Canada?",
+    "a": "You can apply through programs like the Canadian Experience Class (CEC) under Express Entry, or provincial nominee programs.",
+    "categories": ["aftergrad"]
+  }
+]

@@ -1,0 +1,623 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getDatabase, ref, push, set, onValue, query, orderByChild
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD6EOM-DHJeSnufB_xHK0t8PS1ys9p730s",
+  authDomain: "jaekernacanada.firebaseapp.com",
+  databaseURL: "https://jaekernacanada-default-rtdb.firebaseio.com",
+  projectId: "jaekernacanada",
+  storageBucket: "jaekernacanada.appspot.com",
+  messagingSenderId: "622271052558",
+  appId: "1:622271052558:web:50aebf456a69d4814f355f",
+  measurementId: "G-CHLDFWPJ4W"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Only init DB if databaseURL is provided and valid
+let db = null;
+if (firebaseConfig.databaseURL && firebaseConfig.databaseURL.startsWith("https://")) {
+  try {
+    db = getDatabase(app);
+    console.log("Realtime DB initialized.");
+  } catch (err) {
+    console.error("Realtime DB init failed:", err);
+    db = null;
+  }
+} else {
+  console.warn("Realtime Database is not enabled. Set firebaseConfig.databaseURL in app.js to enable DB features.");
+}
+
+/* ============ UI ELEMENTS ============= */
+const pageAuth = document.getElementById("page-auth");
+const pageDashboard = document.getElementById("page-dashboard");
+const navLinks = document.querySelectorAll(".nav-link");
+const pages = document.querySelectorAll(".page");
+const userEmailEl = document.getElementById("user-email");
+const userAvatar = document.getElementById("user-avatar");
+const signoutBtn = document.getElementById("signout");
+const sidebar = document.getElementById("sidebar");
+const sidebarCollapseBtn = document.getElementById("sidebar-collapse");
+
+const statApps = document.getElementById("stat-apps");
+const statDrafts = document.getElementById("stat-drafts");
+const statChecks = document.getElementById("stat-checks");
+const activityList = document.getElementById("activity-list");
+const applicationsTable = document.getElementById("applications-table");
+
+const ctaApply = document.getElementById("cta-apply");
+const ctaCheck = document.getElementById("cta-check");
+
+const modalApply = document.getElementById("modal-apply");
+const modalCheck = document.getElementById("modal-check");
+const applyStepsContainer = document.getElementById("apply-steps");
+const applyProgressFill = document.getElementById("apply-progress");
+const applyBackBtn = document.getElementById("apply-back");
+const applyNextBtn = document.getElementById("apply-next");
+
+const checkStepsContainer = document.getElementById("check-steps");
+const checkBackBtn = document.getElementById("check-back");
+const checkNextBtn = document.getElementById("check-next");
+const checkStepIndicator = document.getElementById("check-step-indicator");
+
+const authForm = document.getElementById("auth-form");
+const authTitle = document.getElementById("auth-title");
+const toggleAuth = document.getElementById("toggle-auth");
+const authError = document.getElementById("auth-error");
+
+/* ============ STATE ============= */
+let isSignUp = false;
+let currentUser = null;
+
+/* ============ AUTH ============= */
+toggleAuth.addEventListener("click", () => {
+  isSignUp = !isSignUp;
+  authTitle.textContent = isSignUp ? "Create account" : "Sign In";
+  toggleAuth.textContent = isSignUp ? "Sign In" : "Sign Up";
+  authError.classList.add("hidden");
+});
+
+authForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  authError.classList.add("hidden");
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  try {
+    if (isSignUp) {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+    }
+  } catch (err) {
+    authError.textContent = err.message || "Authentication failed";
+    authError.classList.remove("hidden");
+  }
+});
+
+signoutBtn.addEventListener("click", async () => {
+  await signOut(auth);
+});
+
+/* Auth guard */
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  if (user) {
+    // show dashboard
+    pageAuth.classList.add("hidden");
+    pageDashboard.classList.remove("hidden");
+    userEmailEl.textContent = user.email;
+    userAvatar.textContent = (user.email || "U")[0].toUpperCase();
+    navigateToPage("dashboard");
+    if (db) attachRealtimeListeners(user.uid);
+    else renderDemoStats();
+  } else {
+    // show auth page
+    pageAuth.classList.remove("hidden");
+    pageDashboard.classList.add("hidden");
+    authForm.reset();
+    renderDemoStats();
+  }
+});
+
+/* ============ NAVIGATION ============= */
+navLinks.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const page = btn.dataset.page;
+    const action = btn.dataset.action;
+    if (action === "openApply") openApplyModal();
+    else if (action === "openCheck") openCheckModal();
+    else if (page) navigateToPage(page);
+    navLinks.forEach(n => n.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+
+function navigateToPage(pageId) {
+  pages.forEach(p => p.classList.remove("page--active"));
+  const el = document.getElementById(`page-${pageId}-view`);
+  if (el) el.classList.add("page--active");
+  document.getElementById("page-title").textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+}
+
+/* Sidebar collapse */
+sidebarCollapseBtn?.addEventListener("click", () => sidebar.classList.toggle("open"));
+
+ctaApply?.addEventListener("click", openApplyModal);
+ctaCheck?.addEventListener("click", openCheckModal);
+
+/* Modal helpers */
+function openApplyModal() {
+  resetApplyWizard();
+  modalApply.classList.remove("hidden");
+  modalApply.setAttribute("aria-hidden", "false");
+}
+function closeApplyModal() {
+  modalApply.classList.add("hidden");
+  modalApply.setAttribute("aria-hidden", "true");
+}
+function openCheckModal() {
+  resetCheckWizard();
+  modalCheck.classList.remove("hidden");
+  modalCheck.setAttribute("aria-hidden", "false");
+}
+function closeCheckModal() {
+  modalCheck.classList.add("hidden");
+  modalCheck.setAttribute("aria-hidden", "true");
+}
+
+/* backdrop close */
+document.querySelectorAll(".modal-backdrop").forEach(el => {
+  el.addEventListener("click", (ev) => {
+    const m = ev.target.closest(".modal");
+    if (!m) return;
+    if (m.querySelector("#apply-steps")) closeApplyModal();
+    if (m.querySelector("#check-steps")) closeCheckModal();
+  });
+});
+
+/* ============ APPLY WIZARD ============= */
+/* steps simplified to keep UI clean, adds autosave when DB available */
+const applySteps = [
+  { id:1, title:'Personal', render: applyStepPersonal },
+  { id:2, title:'Academic', render: applyStepAcademic },
+  { id:3, title:'Program', render: applyStepProgram },
+  { id:4, title:'Finance', render: applyStepFinance },
+  { id:5, title:'Immigration', render: applyStepVisa },
+  { id:6, title:'Documents', render: applyStepDocs },
+  { id:7, title:'Review', render: applyStepReview }
+];
+let applyState = { step:1, form:{} };
+
+function resetApplyWizard(){ applyState = { step:1, form:{} }; renderApplyWizard(); }
+function renderApplyWizard(){
+  const stepObj = applySteps.find(s=>s.id===applyState.step);
+  applyStepsContainer.innerHTML = '';
+  const header = document.createElement('div');
+  header.innerHTML = `<strong>${stepObj.title}</strong><div class="muted">Step ${applyState.step} / ${applySteps.length}</div>`;
+  applyStepsContainer.appendChild(header);
+  const body = document.createElement('div'); body.className='step-body';
+  body.appendChild(stepObj.render(applyState.form));
+  applyStepsContainer.appendChild(body);
+  const pct = Math.round(((applyState.step-1)/(applySteps.length-1))*100);
+  applyProgressFill.style.width = pct + '%';
+  applyBackBtn.disabled = applyState.step === 1;
+  applyNextBtn.textContent = applyState.step === applySteps.length ? 'Submit Application' : 'Next';
+}
+
+applyBackBtn.addEventListener('click', ()=> {
+  if (applyState.step > 1){ applyState.step--; renderApplyWizard(); } else closeApplyModal();
+});
+
+applyNextBtn.addEventListener('click', async ()=> {
+  // collect some fields and validate first step
+  if (applyState.step === 1) {
+    const v = document.getElementById('ap-fullName')?.value || '';
+    if (!v.trim()){ alert('Please enter your full legal name.'); return; }
+    applyState.form.fullName = v.trim();
+  }
+  collectApplyStepValues(applyState.step);
+  if (applyState.step < applySteps.length){ applyState.step++; renderApplyWizard(); return; }
+
+  // final submit
+  if (!currentUser && !db) {
+    alert('Please sign in / configure database to submit application.');
+    return;
+  }
+  try {
+    const base = currentUser ? `applications/${currentUser.uid}` : `applications/anonymous`;
+    const node = push(ref(db, base));
+    await set(node, { form: applyState.form, submittedAt: Date.now(), submittedBy: currentUser?.uid || null });
+    alert('Application submitted — thank you!');
+    closeApplyModal();
+  } catch (err) {
+    console.error(err);
+    alert('Failed to submit application: ' + (err.message || err));
+  }
+});
+
+function collectApplyStepValues(step){
+  if (step===2){
+    applyState.form.educationLevel = document.getElementById('ap-educationLevel')?.value || '';
+    applyState.form.lastSchool = document.getElementById('ap-lastSchool')?.value || '';
+    applyState.form.gpa = document.getElementById('ap-gpa')?.value || '';
+  }
+  if (step===3){
+    applyState.form.programLevel = document.getElementById('ap-programLevel')?.value || '';
+    applyState.form.intendedProgram = document.getElementById('ap-intendedProgram')?.value || '';
+    applyState.form.intake = document.getElementById('ap-intake')?.value || '';
+  }
+  if (step===4){
+    applyState.form.funding = document.getElementById('ap-funding')?.value || '';
+    applyState.form.budget = document.getElementById('ap-budget')?.value || '';
+  }
+  if (step===5){
+    applyState.form.appliedBefore = document.getElementById('ap-appliedBefore')?.value || '';
+    applyState.form.visaRefused = document.getElementById('ap-visaRefused')?.value || '';
+  }
+  if (step===6){
+    applyState.form.documents = {
+      passport: document.getElementById('ap-doc-passport')?.value || '',
+      transcripts: document.getElementById('ap-doc-transcripts')?.value || ''
+    };
+  }
+}
+
+/* step renderers */
+function applyStepPersonal(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <label>Full legal name <input id="ap-fullName" type="text" value="${form.fullName||''}" placeholder="As in passport"></label>
+    <label>Preferred name <input id="ap-preferredName" type="text" value="${form.preferredName||''}"></label>
+    <div style="display:flex;gap:8px">
+      <label style="flex:1">Date of birth <input id="ap-dob" type="date" value="${form.dob||''}"></label>
+      <label style="flex:1">Nationality <input id="ap-nationality" type="text" value="${form.nationality||''}"></label>
+    </div>
+  `;
+  return w;
+}
+function applyStepAcademic(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <label>Highest level of education <input id="ap-educationLevel" type="text" value="${form.educationLevel||''}"></label>
+    <label>Last school/university <input id="ap-lastSchool" type="text" value="${form.lastSchool||''}"></label>
+    <label>GPA or average <input id="ap-gpa" type="text" value="${form.gpa||''}" placeholder="e.g., 3.5"></label>
+  `;
+  return w;
+}
+function applyStepProgram(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <label>Desired level <input id="ap-programLevel" type="text" value="${form.programLevel||''}"></label>
+    <label>Intended program <input id="ap-intendedProgram" type="text" value="${form.intendedProgram||''}"></label>
+    <label>Preferred intake <input id="ap-intake" type="text" value="${form.intake||''}" placeholder="e.g., Fall 2025"></label>
+  `;
+  return w;
+}
+function applyStepFinance(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <label>Who will fund your studies? <input id="ap-funding" type="text" value="${form.funding||''}"></label>
+    <label>Estimated annual budget <input id="ap-budget" type="text" value="${form.budget||''}"></label>
+  `;
+  return w;
+}
+function applyStepVisa(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <label>Applied for Canadian study permit before?
+      <select id="ap-appliedBefore"><option value="">Select</option><option value="no">No</option><option value="yes">Yes</option></select>
+    </label>
+    <label>Been refused a visa?
+      <select id="ap-visaRefused"><option value="">Select</option><option value="no">No</option><option value="yes">Yes</option></select>
+    </label>
+  `;
+  return w;
+}
+function applyStepDocs(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <p class="muted">You can upload files later. For now add short notes.</p>
+    <label>Passport (note) <input id="ap-doc-passport" type="text" value="${(form.documents?.passport)||''}"></label>
+    <label>Transcripts (note) <input id="ap-doc-transcripts" type="text" value="${(form.documents?.transcripts)||''}"></label>
+  `;
+  return w;
+}
+function applyStepReview(form){
+  const w = document.createElement('div');
+  w.innerHTML = `
+    <h4>Review</h4>
+    <div><strong>Name:</strong> ${escapeHtml(form.fullName||'—')}</div>
+    <div><strong>Program:</strong> ${escapeHtml(form.intendedProgram||'—')}</div>
+    <div><strong>GPA:</strong> ${escapeHtml(form.gpa||'—')}</div>
+    <label style="margin-top:12px"><input id="ap-consent" type="checkbox"> I agree to Terms & Privacy</label>
+  `;
+  return w;
+}
+
+/* ============ ELIGIBILITY CHECKER ============ */
+let checkState = { step:1, program:'', level:'', gpa:'', langTest:'', langScore:'', result:null };
+function resetCheckWizard(){ checkState = { step:1, program:'', level:'', gpa:'', langTest:'', langScore:'', result:null }; renderCheckWizard(); }
+function renderCheckWizard(){
+  checkStepsContainer.innerHTML = '';
+  checkStepIndicator.textContent = `Step ${checkState.step} / 3`;
+  if (checkState.step === 1){
+    const d = document.createElement('div');
+    d.innerHTML = `
+      <label>Program or field <input id="chk-program" type="text" value="${escapeHtml(checkState.program)}"></label>
+      <label>Level
+        <select id="chk-level"><option value="">Select</option>
+          <option ${checkState.level==='Undergraduate'?'selected':''}>Undergraduate</option>
+          <option ${checkState.level==='Postgraduate'?'selected':''}>Postgraduate</option>
+          <option ${checkState.level==='PhD'?'selected':''}>PhD</option>
+        </select>
+      </label>
+    `;
+    checkStepsContainer.appendChild(d);
+  } else if (checkState.step === 2){
+    const d = document.createElement('div');
+    d.innerHTML = `
+      <label>GPA / Grade <input id="chk-gpa" type="text" value="${escapeHtml(checkState.gpa)}"></label>
+      <label>Language test (optional) <input id="chk-lang" type="text" value="${escapeHtml(checkState.langTest)}"></label>
+      <label>Score <input id="chk-score" type="text" value="${escapeHtml(checkState.langScore)}"></label>
+    `;
+    checkStepsContainer.appendChild(d);
+  } else {
+    const d = document.createElement('div');
+    if (!checkState.result) d.innerHTML = `<div class="muted">No result yet. Click Evaluate.</div>`;
+    else {
+      const bg = checkState.result.status === 'Likely Eligible' ? '#ecfdf5' : '#fff7f2';
+      d.innerHTML = `<div style="background:${bg};padding:12px;border-radius:10px"><strong>${checkState.result.status}</strong><div class="muted" style="margin-top:8px">${(checkState.result.reasons||[]).join(', ')}</div></div>`;
+    }
+    checkStepsContainer.appendChild(d);
+  }
+}
+
+checkBackBtn.addEventListener('click', ()=> {
+  if (checkState.step > 1){ checkState.step--; renderCheckWizard(); } else closeCheckModal();
+});
+
+checkNextBtn.addEventListener('click', async ()=> {
+  if (checkState.step < 3){
+    if (checkState.step === 1){
+      checkState.program = document.getElementById('chk-program')?.value || '';
+      checkState.level = document.getElementById('chk-level')?.value || '';
+    } else if (checkState.step === 2){
+      checkState.gpa = document.getElementById('chk-gpa')?.value || '';
+      checkState.langTest = document.getElementById('chk-lang')?.value || '';
+      checkState.langScore = document.getElementById('chk-score')?.value || '';
+    }
+    checkState.step++;
+    renderCheckWizard();
+    return;
+  }
+
+  // evaluate
+  const gpaNum = parseFloat(checkState.gpa || '0');
+  let verdict;
+  if ((checkState.level === 'Undergraduate' || checkState.level === 'Postgraduate') && gpaNum >= 3.0) {
+    verdict = { status:'Likely Eligible', reasons:[] };
+  } else {
+    verdict = { status:'Not Eligible', reasons:['GPA below typical threshold'] };
+  }
+  checkState.result = verdict;
+  renderCheckWizard();
+
+  // save to DB
+  if (!db) {
+    alert(`Result: ${verdict.status}. (To save, add databaseURL in app.js)`);
+    return;
+  }
+  try {
+    const base = currentUser ? `qualification_checks/${currentUser.uid}` : `qualification_checks/anonymous`;
+    const node = push(ref(db, base));
+    await set(node, { program: checkState.program, level: checkState.level, gpa: checkState.gpa, langTest: checkState.langTest, langScore: checkState.langScore, verdict, createdAt: Date.now(), user: currentUser?.uid || null });
+    alert('Saved eligibility check — ' + verdict.status);
+  } catch (err) {
+    console.error(err);
+    alert('Failed to save check: ' + (err.message||err));
+  }
+});
+
+/* ============ Realtime listeners (DB) ============ */
+function attachRealtimeListeners(uid){
+  // applications for user
+  const appsRef = ref(db, `applications/${uid}`);
+  onValue(appsRef, snap => {
+    const data = snap.val() || {};
+    const keys = Object.keys(data || {});
+    statApps.textContent = keys.length;
+    const items = keys.slice(-6).reverse().map(k => {
+      const it = data[k];
+      return { when: it.submittedAt || it.updatedAt || Date.now(), title: (it.form?.intendedProgram || "Application"), note: (it.form?.fullName || '') };
+    });
+    renderActivity(items);
+    renderApplicationsTable(data);
+  });
+
+  // drafts (look for draft flag)
+  const draftsRef = ref(db, `applications/${uid}`);
+  onValue(draftsRef, snap => {
+    const d = snap.val() || {};
+    const count = Object.values(d || {}).filter(v => v.draft).length;
+    statDrafts.textContent = count;
+  });
+
+  // qualification checks
+  const checksRef = ref(db, `qualification_checks/${uid}`);
+  onValue(checksRef, snap => {
+    const d = snap.val() || {};
+    statChecks.textContent = Object.keys(d || {}).length;
+  });
+}
+
+/* Render helpers */
+function renderActivity(items){
+  activityList.innerHTML = '';
+  if (!items.length) { activityList.innerHTML = '<li class="muted">No activity yet.</li>'; return; }
+  items.forEach(it => {
+    const li = document.createElement('li');
+    li.innerHTML = `<div><strong>${escapeHtml(it.title)}</strong></div><div class="muted" style="font-size:13px">${escapeHtml(it.note)} • ${new Date(it.when).toLocaleString()}</div>`;
+    activityList.appendChild(li);
+  });
+}
+function renderApplicationsTable(dataObj){
+  applicationsTable.innerHTML = '';
+  const keys = Object.keys(dataObj || {});
+  if (!keys.length) { applicationsTable.innerHTML = '<div class="muted">No applications yet.</div>'; return; }
+  const table = document.createElement('table');
+  table.style.width='100%';
+  table.innerHTML = `<thead><tr><th>Name</th><th>Program</th><th>Status</th><th>Submitted</th></tr></thead>`;
+  const tbody = document.createElement('tbody');
+  keys.reverse().forEach(k => {
+    const it = dataObj[k];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${escapeHtml(it.form?.fullName||'—')}</td>
+      <td>${escapeHtml(it.form?.intendedProgram||'—')}</td>
+      <td>${escapeHtml(it.status|| (it.submittedAt? 'Submitted':'Draft'))}</td>
+      <td>${it.submittedAt ? new Date(it.submittedAt).toLocaleString() : '-'}</td>`;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  applicationsTable.appendChild(table);
+}
+
+/* Demo fallback when DB not enabled */
+function renderDemoStats(){
+  statApps.textContent = '—';
+  statDrafts.textContent = '—';
+  statChecks.textContent = '—';
+  activityList.innerHTML = '<li class="muted">Realtime Database not enabled. Set databaseURL in app.js to use live data.</li>';
+  applicationsTable.innerHTML = '<div class="muted">Realtime Database not enabled.</div>';
+}
+
+/* Utilities */
+function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* Initialize UI */
+navigateToPage('dashboard');
+renderDemoStats();
+resetCheckWizard();
+
+// ========== FAQ DATA (Firebase) ==========
+const FAQ_CATEGORIES = [
+  { key: 'applications', label: '🎓 Applications & Admissions' },
+  { key: 'visa', label: '🛂 Visa & Immigration' },
+  { key: 'tuition', label: '💰 Tuition, Scholarships & Finances' },
+  { key: 'accommodation', label: '🏠 Accommodation & Living in Canada' },
+  { key: 'documents', label: '📄 Documents & Requirements' },
+  { key: 'aftergrad', label: '🛠 After Graduation' },
+];
+
+const faqSection = document.getElementById('page-faq-view');
+const faqList = document.getElementById('faq-list');
+const faqSearch = document.getElementById('faq-search');
+const faqCategories = document.getElementById('faq-categories');
+let activeFaqCategory = null;
+let FAQ_ENTRIES = [];
+
+function renderFaqCategories() {
+  faqCategories.innerHTML = '';
+  FAQ_CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'faq-category' + (activeFaqCategory === cat.key ? ' active' : '');
+    btn.textContent = cat.label;
+    btn.onclick = () => {
+      activeFaqCategory = activeFaqCategory === cat.key ? null : cat.key;
+      renderFaqCategories();
+      renderFaqList();
+    };
+    faqCategories.appendChild(btn);
+  });
+}
+
+function renderFaqList() {
+  const search = (faqSearch.value || '').toLowerCase();
+  let filtered = FAQ_ENTRIES.filter(faq => {
+    const matchesCategory = !activeFaqCategory || (faq.categories && faq.categories.includes(activeFaqCategory));
+    const matchesSearch = !search || (faq.q && faq.q.toLowerCase().includes(search)) || (faq.a && faq.a.toLowerCase().includes(search));
+    return matchesCategory && matchesSearch;
+  });
+  faqList.innerHTML = '';
+  if (filtered.length === 0) {
+    faqList.innerHTML = '<div class="muted">No FAQs found. Try another keyword or category.</div>';
+    return;
+  }
+  filtered.forEach((faq, idx) => {
+    const item = document.createElement('div');
+    item.className = 'faq-item';
+    const q = document.createElement('div');
+    q.className = 'faq-q';
+    q.innerHTML = faq.q + ' <span style="font-size:20px;">➕</span>';
+    const a = document.createElement('div');
+    a.className = 'faq-a';
+    a.innerHTML = (faq.a || '').replace(/\n/g, '<br>');
+    q.onclick = () => {
+      const open = item.classList.toggle('open');
+      q.querySelector('span').textContent = open ? '➖' : '➕';
+    };
+    item.appendChild(q);
+    item.appendChild(a);
+    faqList.appendChild(item);
+  });
+}
+
+async function loadFaqFromFirebase() {
+  if (!db) {
+    console.error('FAQ: No database connection');
+    faqList.innerHTML = '<div class="error">FAQ: No database connection.</div>';
+    return;
+  }
+  const faqsRef = ref(db, 'faq');
+  onValue(faqsRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log('FAQ: Loaded from Firebase:', data);
+    if (data) {
+      FAQ_ENTRIES = Object.values(data);
+      renderFaqList();
+    } else {
+      faqList.innerHTML = '<div class="muted">No FAQs found in Firebase. Try reloading or check your database rules.</div>';
+    }
+  }, (error) => {
+    console.error('FAQ: Error loading from Firebase:', error);
+    faqList.innerHTML = '<div class="error">FAQ: Error loading from Firebase.<br>' + error.message + '</div>';
+  });
+}
+
+async function seedFaqToFirebase() {
+  if (!db) {
+    console.error('FAQ: No database connection for seeding');
+    return;
+  }
+  const faqsRef = ref(db, 'faq');
+  // Only seed if empty
+  onValue(faqsRef, (snapshot) => {
+    if (!snapshot.exists()) {
+      fetch('faq.json')
+        .then(res => res.json())
+        .then(faqs => {
+          faqs.forEach((faq, i) => {
+            set(ref(db, `faq/${i}`), faq)
+              .then(() => console.log(`FAQ: Seeded question ${i}`))
+              .catch(err => console.error('FAQ: Error seeding', err));
+          });
+        })
+        .catch(err => console.error('FAQ: Error loading faq.json', err));
+    } else {
+      console.log('FAQ: Data already exists in Firebase, not seeding.');
+    }
+  }, { onlyOnce: true });
+}
+
+if (faqSection) {
+  renderFaqCategories();
+  loadFaqFromFirebase();
+  seedFaqToFirebase();
+  faqSearch.addEventListener('input', renderFaqList);
+}
