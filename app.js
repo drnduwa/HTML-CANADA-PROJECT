@@ -786,3 +786,164 @@ if (programSearchBtn) {
     searchUniversitiesByProgram(val);
   });
 }
+
+/* Accommodation modal logic */
+const openAccommodationModalBtn = document.getElementById('open-accommodation-modal');
+const modalAccommodation = document.getElementById('modal-accommodation');
+const accommodationModalBody = document.getElementById('accommodation-modal-body');
+const closeAccommodationModalBtn = document.getElementById('close-accommodation-modal');
+
+const accommodationFaqList = document.getElementById('accommodation-faq-list');
+const accommodationFaqs = [
+  {
+    q: 'What types of accommodation are available for international students in Canada?',
+    a: `<ul>
+      <li>On-campus residences (dormitories): Managed by universities/colleges, usually furnished, close to classes.</li>
+      <li>Off-campus shared housing: Apartments or houses shared with other students, typically the most affordable.</li>
+      <li>Private rentals: Individual apartments or studios, more independence but higher cost.</li>
+      <li>Homestay: Living with a Canadian host family, often includes meals and utilities.</li>
+      <li>Student cooperatives (co-ops): Non-profit housing run by students for students.</li>
+    </ul>`
+  },
+  {
+    q: 'How much does student housing cost in Canada?',
+    a: `On-campus residence: CAD 600 – 1,300/month<br>Off-campus shared housing: CAD 600 – 1,500/month<br>Private rentals: CAD 1,100 – 2,500/month (varies by city)<br>Homestay: CAD 700 – 1,500/month (with meals)<br><span style="color:#F59E42;">💡 Costs are higher in Toronto, Vancouver, and Victoria, and lower in Winnipeg, Regina, and St. John’s.</span>`
+  },
+  {
+    q: 'How do I apply for on-campus housing?',
+    a: `Apply through your university’s housing office or student portal.<br>Most universities require early applications (often immediately after admission).<br>Spaces are limited and assigned on a first-come, first-served basis.`
+  },
+  {
+    q: 'Is on-campus housing guaranteed for international students?',
+    a: `In Ontario, institutions are now required to guarantee housing for incoming international students.<br>Outside Ontario, guarantees depend on the university. Many offer priority housing for first-year international students.`
+  },
+  {
+    q: 'What documents are needed to rent off-campus housing?',
+    a: `<ul>
+      <li>Valid ID (passport, study permit)</li>
+      <li>Proof of enrollment (acceptance letter/student ID)</li>
+      <li>Proof of funds or guarantor (e.g., Canadian bank account, sponsor)</li>
+      <li>First month’s rent (and sometimes last month’s rent as deposit)</li>
+    </ul>`
+  },
+  {
+    q: 'Are utilities and internet included in rent?',
+    a: `On-campus housing: Almost always included (heating, electricity, internet).<br>Off-campus housing: Sometimes included, but often students split costs for internet, electricity, and heating.`
+  },
+  {
+    q: 'Can international students face housing discrimination?',
+    a: `Yes. Surveys indicate over 50% of international students face challenges securing housing due to:<ul><li>Discrimination</li><li>Limited credit history in Canada</li><li>Exploitative landlords</li></ul><span style="color:#F43F5E;">👉 To avoid this: rent through trusted university channels, verified rental websites, or student housing cooperatives.</span>`
+  },
+  {
+    q: 'What should I budget monthly for accommodation and living expenses?',
+    a: `On average, students spend CAD 1,000 – 2,000 per month on housing + utilities.<br>Adding food, transport, and personal expenses, expect a monthly budget of CAD 1,500 – 2,500 (varies by city).`
+  },
+  {
+    q: 'What is “unsuitable housing,” and why is it common among international students?',
+    a: `According to Statistics Canada, unsuitable housing means the unit does not have enough bedrooms for household size.<br>Example: 6–8 students sharing a 2-bedroom apartment.<br>Common in Brampton (63%) and Surrey (61%) among international students due to affordability pressures.`
+  },
+  {
+    q: 'What should I check before signing a rental agreement?',
+    a: `Lease duration and terms (usually 8–12 months minimum).<br>What is included in rent (utilities, internet, furniture).<br>Refund policy on deposit.<br>Maintenance responsibilities.<br>Read carefully for clauses on early termination.`
+  },
+  {
+    q: 'What are student housing cooperatives (co-ops)?',
+    a: `Affordable, community-run housing managed by students.<br>Examples: Waterloo Co-operative Residence Inc., Toronto Campus Co-op, ECOLE (Montreal).<br>Cheaper than private rentals, but students share responsibilities (cleaning, administration).`
+  },
+  {
+    q: 'What should I do if I can’t find housing before arrival?',
+    a: `Contact your university’s international student office.<br>Book short-term housing (hostels, Airbnb, homestay) for 2–4 weeks.<br>Use that time to visit apartments in person and sign a safe lease.`
+  },
+  {
+    q: 'Are there scams to watch out for?',
+    a: `Yes. Warning signs include:<ul><li>Requests for money transfer before viewing the property.</li><li>No lease or written agreement.</li><li>Rent price far below market average.</li></ul><span style="color:#F43F5E;">👉 Always visit the unit in person or through video call, and pay only through traceable methods (not cash).</span>`
+  },
+  {
+    q: 'Where can I find reliable housing listings?',
+    a: `University housing boards<br>Verified student housing portals (e.g., Places4Students, Rentals.ca, PadMapper)<br>Local student associations<br>Non-profit housing co-ops`
+  },
+  {
+    q: 'What support is available if I struggle with housing?',
+    a: `University international student office<br>Local student unions<br>Provincial tenant rights organizations (e.g., Ontario Landlord and Tenant Board)<br>Community legal aid clinics`
+  }
+];
+function renderAccommodationFaq() {
+  if (!accommodationFaqList) return;
+  accommodationFaqList.innerHTML = accommodationFaqs.map((item, i) => `
+    <div class="faq-item" style="border-bottom:1px solid #e5e7eb;">
+      <button class="faq-toggle" aria-expanded="false" style="background:none;border:none;width:100%;text-align:left;padding:12px 0;font-size:1em;display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <span class="faq-plus" style="font-weight:bold;font-size:1.2em;">+</span>
+        <span>${item.q}</span>
+      </button>
+      <div class="faq-answer" style="display:none;padding:0 0 12px 28px;color:#374151;">${item.a}</div>
+    </div>
+  `).join('');
+  accommodationFaqList.querySelectorAll('.faq-toggle').forEach((btn, idx) => {
+    btn.addEventListener('click', function() {
+      const answer = btn.parentElement.querySelector('.faq-answer');
+      const plus = btn.querySelector('.faq-plus');
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      if (!expanded) {
+        answer.style.display = 'block';
+        plus.textContent = '−';
+      } else {
+        answer.style.display = 'none';
+        plus.textContent = '+';
+      }
+    });
+  });
+}
+// Render FAQ when modal opens
+async function showAccommodationModal() {
+  modalAccommodation.classList.remove('hidden');
+  modalAccommodation.setAttribute('aria-hidden', 'false');
+  renderAccommodationFaq();
+  // Only append accommodation info below FAQ section
+  let infoList = document.getElementById('accommodation-info-list');
+  if (!infoList) {
+    const faqSection = document.querySelector('#accommodation-modal-body .faq-section');
+    if (faqSection) {
+      faqSection.insertAdjacentHTML('afterend', '<div id="accommodation-info-list"><div class="muted">Loading...</div></div>');
+      infoList = document.getElementById('accommodation-info-list');
+    }
+  }
+  try {
+    const res = await fetch('accommodation.json');
+    const data = await res.json();
+    const infoHtml = data.map(item => `
+      <div class="accommodation-card" style="margin-bottom:18px;padding:12px;border-radius:8px;background:#f8fafc;box-shadow:0 2px 8px #1e3a8a22;">
+        <h4 style="margin-bottom:8px;">${item.City}</h4>
+        <div><strong>Percent Renting:</strong> ${item.Percent_Renting ?? '-'}%</div>
+        <div><strong>Percent Roommates:</strong> ${item.Percent_Roommates ?? '-'}%</div>
+        <div><strong>On-Campus Rent (Monthly):</strong> ${item.OnCampus_Rent_Monthly ?? '-'} CAD</div>
+        <div><strong>Off-Campus Shared Rent:</strong> ${item.OffCampus_Shared_Rent ?? '-'} CAD</div>
+        <div><strong>Off-Campus Private Rent:</strong> ${item.OffCampus_Private_Rent ?? '-'} CAD</div>
+        <div><strong>Homestay Rent:</strong> ${item.Homestay_Rent ?? '-'} CAD</div>
+        <div><strong>PBSA Percent Coverage:</strong> ${item.PBSA_Percent_Coverage ?? '-'}%</div>
+        <div><strong>Rent Trends:</strong> ${item.Rent_Trends_Notes ?? '-'} </div>
+        <div><strong>Survey Housing Struggle:</strong> ${item["Survey_HousingStruggle(%)"] ?? '-'}%</div>
+        <div><strong>Co-Op Exists:</strong> ${item.CoOp_Exists ?? '-'} </div>
+        <div><strong>Policy Guarantee:</strong> ${item.Policy_Guarantee ?? '-'} </div>
+      </div>
+    `).join('');
+    infoList.innerHTML = infoHtml;
+  } catch (err) {
+    if (infoList) infoList.innerHTML = '<div class="muted">Error loading accommodation data.</div>';
+  }
+}
+if (openAccommodationModalBtn) {
+  openAccommodationModalBtn.addEventListener('click', showAccommodationModal);
+}
+if (closeAccommodationModalBtn) {
+  closeAccommodationModalBtn.addEventListener('click', () => {
+    modalAccommodation.classList.add('hidden');
+    modalAccommodation.setAttribute('aria-hidden', 'true');
+  });
+}
+document.querySelectorAll('.modal-backdrop').forEach(el => {
+  el.addEventListener('click', () => {
+    modalAccommodation.classList.add('hidden');
+    modalAccommodation.setAttribute('aria-hidden', 'true');
+  });
+});

@@ -68,6 +68,7 @@
         <button class="nav-link" data-page="account">Account</button>
   <button class="nav-link" id="open-profile-modal">My Profile</button>
   <button class="nav-link" data-page="faq">FAQ & Help Center</button>
+  <button class="nav-link" id="open-accommodation-modal">Accommodation</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -150,6 +151,7 @@
     <button id="program-search-btn" class="btn primary">Search</button>
   </div>
   <div id="program-search-results" style="margin-top:18px;"></div>
+  <button id="open-accommodation-modal" class="btn primary" style="margin-top:16px;">Accommodation</button>
 </div>
           </div>
         </section>
@@ -271,6 +273,28 @@
     <div class="modal-body" id="profile-modal-body"></div>
     <div class="modal-footer">
       <button id="close-profile-modal" class="btn ghost">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Accommodation Modal -->
+<div id="modal-accommodation" class="modal hidden" aria-hidden="true">
+  <div class="modal-backdrop" data-close="true"></div>
+  <div class="modal-card large" style="max-height:80vh;overflow-y:auto;">
+    <div class="modal-header">
+      <h3>Accommodation Information</h3>
+    </div>
+    <div class="modal-body" id="accommodation-modal-body">
+      <div class="faq-section" style="margin-bottom:24px;">
+        <h4>Frequently Asked Questions (FAQ) – Student Accommodation in Canada</h4>
+        <div class="faq-list" id="accommodation-faq-list">
+          <!-- FAQ items will be rendered by JS -->
+        </div>
+      </div>
+      <!-- Accommodation info will be loaded here by JS -->
+    </div>
+    <div class="modal-footer">
+      <button id="close-accommodation-modal" class="btn ghost">Close</button>
     </div>
   </div>
 </div>
