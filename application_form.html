@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎓 Undergraduate Program Application Form – Canada</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .form-section { margin-bottom: 24px; }
+    .form-section h3 { margin-bottom: 10px; }
+    .form-group { margin-bottom: 12px; }
+    label { display: block; margin-bottom: 4px; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 6px; }
+    .checkbox-group label { display: inline-block; margin-right: 16px; }
+    .declaration { margin-top: 20px; font-size: 0.95em; }
+    .submit-btn { background: #1976d2; color: #fff; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1em; }
+    .submit-btn:hover { background: #1565c0; }
+  </style>
+</head>
+<body>
+  <form id="canada-application-form">
+    <h2>🎓 Undergraduate Program Application Form – Canada</h2>
+    <div class="form-section">
+      <h3>Section 1: Personal Information</h3>
+      <div class="form-group"><label>Full Name:</label><input type="text" name="fullName" required></div>
+      <div class="form-group"><label>Date of Birth (DD/MM/YYYY):</label><input type="date" name="dob" required></div>
+      <div class="form-group checkbox-group">
+        <label>Gender:</label>
+        <label><input type="radio" name="gender" value="Male"> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+        <label><input type="radio" name="gender" value="Prefer not to say"> Prefer not to say</label>
+      </div>
+      <div class="form-group"><label>Citizenship:</label><input type="text" name="citizenship" required></div>
+      <div class="form-group"><label>Passport Number:</label><input type="text" name="passportNumber" required></div>
+      <div class="form-group"><label>Contact Email:</label><input type="email" name="email" required></div>
+      <div class="form-group"><label>Phone Number (incl. country code):</label><input type="text" name="phone" required></div>
+      <div class="form-group"><label>Current Address:</label><textarea name="address" required></textarea></div>
+    </div>
+    <div class="form-section">
+      <h3>Section 2: Program of Interest</h3>
+      <div class="form-group"><label>Intended University:</label><select name="university" id="university-select" required></select></div>
+      <div class="form-group"><label>Intended Faculty / School (e.g., Engineering, Arts, Business):</label><input type="text" name="faculty" required></div>
+      <div class="form-group"><label>Intended Program / Major:</label><select name="program" id="program-select" required></select></div>
+      <div class="form-group checkbox-group">
+        <label>Preferred Start Term:</label>
+        <label><input type="radio" name="startTerm" value="Fall"> Fall</label>
+        <label><input type="radio" name="startTerm" value="Winter"> Winter</label>
+        <label><input type="radio" name="startTerm" value="Summer"> Summer</label>
+      </div>
+      <div class="form-group checkbox-group">
+        <label>Study Level:</label>
+        <label><input type="radio" name="studyLevel" value="Undergraduate" checked> Undergraduate (Bachelor’s)</label>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Section 3: Academic Background</h3>
+      <div class="form-group"><label>High School Name:</label><input type="text" name="highSchool" required></div>
+      <div class="form-group"><label>Country / City:</label><input type="text" name="highSchoolLocation" required></div>
+      <div class="form-group"><label>Years Attended:</label><input type="text" name="yearsAttended" required></div>
+      <div class="form-group"><label>Graduation Date:</label><input type="date" name="graduationDate" required></div>
+      <div class="form-group"><label>Final / Expected GPA or Percentage:</label><input type="text" name="gpa" required></div>
+      <div class="form-group"><label>Standardized Tests (if applicable):</label></div>
+      <div class="form-group"><label>IELTS / TOEFL / Duolingo:</label><input type="text" name="englishTest"></div>
+      <div class="form-group"><label>SAT / ACT:</label><input type="text" name="satAct"></div>
+      <div class="form-group"><label>Other (specify):</label><input type="text" name="otherTest"></div>
+    </div>
+    <div class="form-section">
+      <h3>Section 4: Supporting Documents (to be uploaded)</h3>
+      <div class="form-group checkbox-group">
+        <label><input type="checkbox" name="documents" value="High School Transcripts"> High School Transcripts</label>
+        <label><input type="checkbox" name="documents" value="Proof of English/French Language Proficiency"> Proof of English/French Language Proficiency</label>
+        <label><input type="checkbox" name="documents" value="Copy of Passport"> Copy of Passport</label>
+        <label><input type="checkbox" name="documents" value="Letter of Intent / Personal Statement"> Letter of Intent / Personal Statement</label>
+        <label><input type="checkbox" name="documents" value="Letters of Recommendation"> Letters of Recommendation (optional)</label>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Section 5: Scholarships & Financial Aid</h3>
+      <div class="form-group checkbox-group">
+        <label>Do you wish to be considered for scholarships?</label>
+        <label><input type="radio" name="scholarship" value="Yes"> Yes</label>
+        <label><input type="radio" name="scholarship" value="No"> No</label>
+      </div>
+      <div class="form-group"><label>If yes, please specify (optional):</label><input type="text" name="scholarshipDetails"></div>
+    </div>
+    <div class="form-section">
+      <h3>Section 6: Emergency Contact</h3>
+      <div class="form-group"><label>Full Name:</label><input type="text" name="emergencyName" required></div>
+      <div class="form-group"><label>Relationship:</label><input type="text" name="emergencyRelationship" required></div>
+      <div class="form-group"><label>Phone Number:</label><input type="text" name="emergencyPhone" required></div>
+      <div class="form-group"><label>Email Address:</label><input type="email" name="emergencyEmail" required></div>
+    </div>
+    <div class="form-section declaration">
+      <input type="checkbox" name="declaration" required> I hereby declare that the information provided is true and complete to the best of my knowledge. I understand that providing false information may result in the withdrawal of my application.
+    </div>
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+  <script>
+    // Fetch programs and universities from canadafulldataset.json
+    fetch('canada_program_requirements_full.json')
+      .then(response => response.json())
+      .then(data => {
+        const universitySet = new Set();
+        const programSet = new Set();
+        data.forEach(item => {
+          if(item.university) universitySet.add(item.university);
+          if(item.program) programSet.add(item.program);
+        });
+        const universitySelect = document.getElementById('university-select');
+        universitySet.forEach(u => {
+          const option = document.createElement('option');
+          option.value = u;
+          option.textContent = u;
+          universitySelect.appendChild(option);
+        });
+        const programSelect = document.getElementById('program-select');
+        programSet.forEach(p => {
+          const option = document.createElement('option');
+          option.value = p;
+          option.textContent = p;
+          programSelect.appendChild(option);
+        });
+      });
+    // Basic form submission handler
+    document.getElementById('canada-application-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Your application has been submitted!');
+      // You can add logic here to send the form data to a server or save locally
+    });
+  </script>
+</body>
+</html>
