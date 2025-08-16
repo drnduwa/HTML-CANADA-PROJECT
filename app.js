@@ -394,14 +394,75 @@ function applyStepReview(form){
 
 /* ============ ELIGIBILITY CHECKER ============ */
 let checkState = { step:1, program:'', level:'', gpa:'', langTest:'', langScore:'', result:null };
+let universitiesData = [];
+let scholarshipsData = [];
+let availablePrograms = [];
+let canadaProgramsData = [];
+async function loadEligibilityData() {
+  try {
+    const progRes = await fetch('canadafulldataset.json');
+    canadaProgramsData = await progRes.json();
+    availablePrograms = [...new Set(canadaProgramsData.map(p => p.Program))].sort();
+    const uniRes = await fetch('universities.json');
+    universitiesData = await uniRes.json();
+    const schRes = await fetch('scholarships.json');
+    scholarshipsData = await schRes.json();
+  } catch (err) {
+    universitiesData = [];
+    scholarshipsData = [];
+    availablePrograms = [];
+    canadaProgramsData = [];
+  }
+}
+
+function evaluateEligibility(program, level, gpa, langTest, langScore) {
+  // Find matching programs in canadafulldataset.json
+  let matches = canadaProgramsData.filter(item => item.Program === program);
+  let eligible = false;
+  let reasons = [];
+  if (matches.length > 0) {
+    eligible = true;
+    matches.forEach(m => {
+      if (gpa && m["Entry Requirements (summary)"] && m["Entry Requirements (summary)"].match(/([0-9]+)%/)) {
+        const reqGpa = parseInt(m["Entry Requirements (summary)"].match(/([0-9]+)%/)[1]);
+        if (parseFloat(gpa) < reqGpa) {
+          eligible = false;
+          reasons.push(`GPA below required for ${m.Program} at ${m.University}`);
+        }
+      }
+    });
+  } else {
+    reasons.push('No matching program found');
+  }
+  // Scholarships
+  let qualifiedScholarships = scholarshipsData.filter(sch => {
+    return sch.Sponsor && matches.some(m => m.University && m.University.includes(sch.Sponsor)) && sch.Level && sch.Level.toLowerCase().includes(level.toLowerCase());
+  });
+  return {
+    status: eligible ? 'Likely Eligible' : 'Not Eligible',
+    reasons,
+    matches,
+    scholarships: qualifiedScholarships
+  };
+}
+
 function resetCheckWizard(){ checkState = { step:1, program:'', level:'', gpa:'', langTest:'', langScore:'', result:null }; renderCheckWizard(); }
 function renderCheckWizard(){
   checkStepsContainer.innerHTML = '';
-  checkStepIndicator.textContent = `Step ${checkState.step} / 3`;
+  checkStepIndicator.textContent = `Step ${checkState.step} / 2`;
+  const saveBtn = document.getElementById('check-save');
+  const closeBtn = document.getElementById('check-close');
   if (checkState.step === 1){
+    if (saveBtn) saveBtn.style.display = 'none';
+    if (closeBtn) closeBtn.style.display = 'none';
     const d = document.createElement('div');
     d.innerHTML = `
-      <label>Program or field <input id="chk-program" type="text" value="${escapeHtml(checkState.program)}"></label>
+      <label>Program or field
+        <select id="chk-program" style="width:100%;">
+          <option value="">Select a program</option>
+          ${availablePrograms.map(p => `<option value="${p}" ${checkState.program===p?'selected':''}>${p}</option>`).join('')}
+        </select>
+      </label>
       <label>Level
         <select id="chk-level"><option value="">Select</option>
           <option ${checkState.level==='Undergraduate'?'selected':''}>Undergraduate</option>
@@ -409,72 +470,96 @@ function renderCheckWizard(){
           <option ${checkState.level==='PhD'?'selected':''}>PhD</option>
         </select>
       </label>
-    `;
-    checkStepsContainer.appendChild(d);
-  } else if (checkState.step === 2){
-    const d = document.createElement('div');
-    d.innerHTML = `
       <label>GPA / Grade <input id="chk-gpa" type="text" value="${escapeHtml(checkState.gpa)}"></label>
       <label>Language test (optional) <input id="chk-lang" type="text" value="${escapeHtml(checkState.langTest)}"></label>
       <label>Score <input id="chk-score" type="text" value="${escapeHtml(checkState.langScore)}"></label>
+      <button id="eligibility-check-btn" class="btn primary" style="margin-top:16px;width:100%;">Check</button>
     `;
     checkStepsContainer.appendChild(d);
+    // Update program selection
+    const progSelect = d.querySelector('#chk-program');
+    if (progSelect) {
+      progSelect.addEventListener('change', e => {
+        checkState.program = e.target.value;
+      });
+    }
+    d.querySelector('#chk-level').addEventListener('change', e => {
+      checkState.level = e.target.value;
+    });
+    d.querySelector('#chk-gpa').addEventListener('input', e => {
+      checkState.gpa = e.target.value;
+    });
+    d.querySelector('#chk-lang').addEventListener('input', e => {
+      checkState.langTest = e.target.value;
+    });
+    d.querySelector('#chk-score').addEventListener('input', e => {
+      checkState.langScore = e.target.value;
+    });
+    d.querySelector('#eligibility-check-btn').addEventListener('click', () => {
+      checkState.step = 2;
+      renderCheckWizard();
+    });
   } else {
+    if (saveBtn) saveBtn.style.display = '';
+    if (closeBtn) closeBtn.style.display = '';
+    // Step 2: Show result
     const d = document.createElement('div');
-    if (!checkState.result) d.innerHTML = `<div class="muted">No result yet. Click Evaluate.</div>`;
-    else {
-      const bg = checkState.result.status === 'Likely Eligible' ? '#ecfdf5' : '#fff7f2';
-      d.innerHTML = `<div style="background:${bg};padding:12px;border-radius:10px"><strong>${checkState.result.status}</strong><div class="muted" style="margin-top:8px">${(checkState.result.reasons||[]).join(', ')}</div></div>`;
+    const result = evaluateEligibility(checkState.program, checkState.level, checkState.gpa, checkState.langTest, checkState.langScore);
+    checkState.result = result;
+    if (!result) {
+      d.innerHTML = `<div class="muted">No result yet. Click Check.</div>`;
+    } else {
+      const bg = result.status === 'Likely Eligible' ? '#ecfdf5' : '#fff7f2';
+      d.innerHTML = `<div style="background:${bg};padding:12px;border-radius:10px"><strong>${result.status}</strong><div class="muted" style="margin-top:8px">${(result.reasons||[]).join(', ')}</div></div>`;
+      if (result.status !== 'Likely Eligible' && result.matches && result.matches.length > 0) {
+        // Show only the first minimum condition to qualify
+        const m = result.matches[0];
+        if (m) {
+          d.innerHTML += `<h4 style="margin-top:16px;">Minimum Condition to Qualify</h4><ul><li><strong>${m.Program || ''}</strong> at ${m.University || ''}: ${m["Entry Requirements (summary)"] || 'N/A'}</li></ul>`;
+        }
+      }
+      if (result.matches && result.matches.length > 0) {
+        // Show only the first matching program
+        const m = result.matches[0];
+        if (m) {
+          d.innerHTML += `<h4 style="margin-top:16px;">Matching Program</h4><ul><li><strong>${m.Program || ''}</strong> at <a href="${m["Primary Source / Admissions or Tuition Page"] || '#'}" target="_blank">${m.University || ''}</a> (${m.City || ''})<br>Requirements: ${m["Entry Requirements (summary)"] || 'N/A'}<br>Yearly Fee: ${m["Yearly Tuition for International Students (CAD)"] ?? 'N/A'} CAD, Application Fee: ${m["Application / Registration Fee (CAD)"] ?? 'N/A'} CAD, Deadline: ${m.Deadline || 'N/A'}</li></ul>`;
+        }
+      }
+      if (result.scholarships && result.scholarships.length > 0) {
+        // Show only the first qualified scholarship
+        const s = result.scholarships[0];
+        if (s) {
+          d.innerHTML += `<h4 style="margin-top:16px;">Qualified Scholarship</h4><ul><li><strong>${s["Scholarship Name"] || ''}</strong> (${s.Sponsor || ''})<br>Amount: ${s.Amount || 'N/A'}, Duration: ${s.Duration || 'N/A'}<br>Eligibility: ${s.Eligibility || 'N/A'}<br>Deadline: ${s["Deadline (Approx.)"] || 'N/A'}<br><a href="${s.URL || '#'}" target="_blank">More info</a></li></ul>`;
+        }
+      }
     }
     checkStepsContainer.appendChild(d);
+    // Save button logic
+    if (saveBtn) {
+      saveBtn.onclick = async function() {
+        if (!db) {
+          alert(`Result: ${result.status}. (To save, add databaseURL in app.js)`);
+          return;
+        }
+        try {
+          const base = currentUser ? `qualification_checks/${currentUser.uid}` : `qualification_checks/anonymous`;
+          const node = push(ref(db, base));
+          await set(node, { program: checkState.program, level: checkState.level, gpa: checkState.gpa, langTest: checkState.langTest, langScore: checkState.langScore, verdict: result, createdAt: Date.now(), user: currentUser?.uid || null });
+          alert('Saved eligibility check — ' + result.status);
+        } catch (err) {
+          console.error(err);
+          alert('Failed to save check: ' + (err.message||err));
+        }
+      };
+    }
+    // Close button logic
+    if (closeBtn) {
+      closeBtn.onclick = function() {
+        closeCheckModal();
+      };
+    }
   }
 }
-
-checkBackBtn.addEventListener('click', ()=> {
-  if (checkState.step > 1){ checkState.step--; renderCheckWizard(); } else closeCheckModal();
-});
-
-checkNextBtn.addEventListener('click', async ()=> {
-  if (checkState.step < 3){
-    if (checkState.step === 1){
-      checkState.program = document.getElementById('chk-program')?.value || '';
-      checkState.level = document.getElementById('chk-level')?.value || '';
-    } else if (checkState.step === 2){
-      checkState.gpa = document.getElementById('chk-gpa')?.value || '';
-      checkState.langTest = document.getElementById('chk-lang')?.value || '';
-      checkState.langScore = document.getElementById('chk-score')?.value || '';
-    }
-    checkState.step++;
-    renderCheckWizard();
-    return;
-  }
-
-  // evaluate
-  const gpaNum = parseFloat(checkState.gpa || '0');
-  let verdict;
-  if ((checkState.level === 'Undergraduate' || checkState.level === 'Postgraduate') && gpaNum >= 3.0) {
-    verdict = { status:'Likely Eligible', reasons:[] };
-  } else {
-    verdict = { status:'Not Eligible', reasons:['GPA below typical threshold'] };
-  }
-  checkState.result = verdict;
-  renderCheckWizard();
-
-  // save to DB
-  if (!db) {
-    alert(`Result: ${verdict.status}. (To save, add databaseURL in app.js)`);
-    return;
-  }
-  try {
-    const base = currentUser ? `qualification_checks/${currentUser.uid}` : `qualification_checks/anonymous`;
-    const node = push(ref(db, base));
-    await set(node, { program: checkState.program, level: checkState.level, gpa: checkState.gpa, langTest: checkState.langTest, langScore: checkState.langScore, verdict, createdAt: Date.now(), user: currentUser?.uid || null });
-    alert('Saved eligibility check — ' + verdict.status);
-  } catch (err) {
-    console.error(err);
-    alert('Failed to save check: ' + (err.message||err));
-  }
-});
 
 /* ============ Realtime listeners (DB) ============ */
 function attachRealtimeListeners(uid){
@@ -555,6 +640,7 @@ function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;'
 navigateToPage('dashboard');
 renderDemoStats();
 resetCheckWizard();
+loadEligibilityData();
 
 // ========== FAQ DATA (Firebase) ==========
 const FAQ_CATEGORIES = [

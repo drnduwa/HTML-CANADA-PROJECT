@@ -1,0 +1,342 @@
+[
+  {
+    "Scholarship Name":"Lester B. Pearson International Scholarship",
+    "Sponsor":"University of Toronto",
+    "Level":"Undergraduate",
+    "Amount":"Full (tuition, books, incidental, residence)",
+    "Duration":"4 years",
+    "Eligibility":"Outstanding international students (academic + leadership)",
+    "Deadline (Approx.)":"Nov-Jan",
+    "URL":"https:\/\/future.utoronto.ca\/pearson\/about\/"
+  },
+  {
+    "Scholarship Name":"Karen McKellin International Leader of Tomorrow (ILOT)",
+    "Sponsor":"University of British Columbia",
+    "Level":"Undergraduate",
+    "Amount":"Tuition + fees + living support (need & merit)",
+    "Duration":"Up to degree completion",
+    "Eligibility":"Exceptional international students with leadership & academic excellence",
+    "Deadline (Approx.)":"Nov-Dec",
+    "URL":"https:\/\/you.ubc.ca\/financial-planning\/scholarships-awards-international-students\/international-scholars\/"
+  },
+  {
+    "Scholarship Name":"Schulich Leader Scholarships",
+    "Sponsor":"Schulich Foundation (partner universities)",
+    "Level":"Undergraduate (STEM)",
+    "Amount":"CAD 100,000–120,000",
+    "Duration":"Up to degree completion",
+    "Eligibility":"High school graduates nominated by their school; STEM focus",
+    "Deadline (Approx.)":"School nomination deadlines (varies)",
+    "URL":"https:\/\/schulichleaders.com\/"
+  },
+  {
+    "Scholarship Name":"Vanier Canada Graduate Scholarships",
+    "Sponsor":"Government of Canada",
+    "Level":"Doctoral (PhD)",
+    "Amount":"CAD 50,000\/year",
+    "Duration":"3 years",
+    "Eligibility":"Research excellence; leadership (Canadian & international eligible)",
+    "Deadline (Approx.)":"Autumn (varies annually)",
+    "URL":"https:\/\/vanier.gc.ca\/en\/home-accueil.html"
+  },
+  {
+    "Scholarship Name":"Banting Postdoctoral Fellowships",
+    "Sponsor":"Government of Canada",
+    "Level":"Postdoctoral",
+    "Amount":"CAD 70,000\/year (typical)",
+    "Duration":"2 years",
+    "Eligibility":"Top postdoctoral applicants (national & international)",
+    "Deadline (Approx.)":"Aug-Sep (annual)",
+    "URL":"https:\/\/banting.fellowships-bourses.gc.ca\/en\/home-accueil.html"
+  },
+  {
+    "Scholarship Name":"Mitacs Globalink Research Internship",
+    "Sponsor":"Mitacs",
+    "Level":"Undergraduate (research internship)",
+    "Amount":"Stipend + travel allowance (varies)",
+    "Duration":"12 weeks",
+    "Eligibility":"Undergraduate students from eligible partner institutions abroad",
+    "Deadline (Approx.)":"Winter (varies)",
+    "URL":"https:\/\/www.mitacs.ca\/our-programs\/globalink-research-internship-students\/"
+  },
+  {
+    "Scholarship Name":"TD Scholarships for Community Leadership",
+    "Sponsor":"TD Bank\/TD Canada Trust",
+    "Level":"Undergraduate (entrance)",
+    "Amount":"Up to CAD 70,000",
+    "Duration":"Up to 4 years",
+    "Eligibility":"High school students with strong community leadership",
+    "Deadline (Approx.)":"Nov (annual)",
+    "URL":"https:\/\/www.td.com\/ca\/en\/personal-banking\/solutions\/student-banking\/community-leadership-scholarship\/"
+  },
+  {
+    "Scholarship Name":"Pierre Elliott Trudeau Foundation Scholarships",
+    "Sponsor":"Trudeau Foundation",
+    "Level":"Doctoral (SSH)",
+    "Amount":"Up to CAD 60,000\/year",
+    "Duration":"Up to 3 years",
+    "Eligibility":"PhD students in social sciences & humanities with leadership potential",
+    "Deadline (Approx.)":"Dec (annual)",
+    "URL":"https:\/\/www.trudeaufoundation.ca\/"
+  },
+  {
+    "Scholarship Name":"Ontario Graduate Scholarship (OGS)",
+    "Sponsor":"Province of Ontario \/ Universities",
+    "Level":"Master's\/PhD",
+    "Amount":"CAD 5,000\/term (~CAD15,000\/yr)",
+    "Duration":"2–3 terms",
+    "Eligibility":"Merit-based; international students eligible at Ontario universities",
+    "Deadline (Approx.)":"Varies by institution (Oct–Jan)",
+    "URL":"https:\/\/osap.gov.on.ca\/OSAPPortal\/en\/OSAPHelp\/PRD017470.html"
+  },
+  {
+    "Scholarship Name":"Ontario Trillium Scholarship (OTS)",
+    "Sponsor":"Province of Ontario",
+    "Level":"Doctoral (PhD) international",
+    "Amount":"CAD 40,000\/year",
+    "Duration":"Up to 4 years",
+    "Eligibility":"Highly qualified international PhD candidates (note: program availability has changed over years)",
+    "Deadline (Approx.)":"Varies (check university)",
+    "URL":"https:\/\/www.ontario.ca\/page\/ontario-trillium-scholarship"
+  },
+  {
+    "Scholarship Name":"University of Waterloo International Master's Award of Excellence",
+    "Sponsor":"University of Waterloo",
+    "Level":"Master's (research)",
+    "Amount":"CAD 2,500\/term (up to 5 terms)",
+    "Duration":"Up to 5 terms",
+    "Eligibility":"International research-based master's students",
+    "Deadline (Approx.)":"Varies by program",
+    "URL":"https:\/\/uwaterloo.ca\/graduate-studies-postdoctoral-affairs\/awards-and-funding"
+  },
+  {
+    "Scholarship Name":"University of Manitoba Graduate Fellowships (UMGF)",
+    "Sponsor":"University of Manitoba",
+    "Level":"Master's\/PhD",
+    "Amount":"CAD 14,000 (M)\/CAD18,000 (PhD) per year",
+    "Duration":"Varies",
+    "Eligibility":"Full-time graduate students; merit-based",
+    "Deadline (Approx.)":"Varies by department",
+    "URL":"https:\/\/umanitoba.ca\/graduate-studies\/graduate-funding"
+  },
+  {
+    "Scholarship Name":"Winnipeg President's Scholarship for World Leaders",
+    "Sponsor":"University of Winnipeg",
+    "Level":"Undergraduate",
+    "Amount":"CAD 3,500–5,000",
+    "Duration":"1 year",
+    "Eligibility":"International students with leadership",
+    "Deadline (Approx.)":"June (annual)",
+    "URL":"https:\/\/www.uwinnipeg.ca\/"
+  },
+  {
+    "Scholarship Name":"Canadian Francophonie Scholarship Program (CFSP)",
+    "Sponsor":"Government of Canada (GAC\/CBIE)",
+    "Level":"Master's\/PhD",
+    "Amount":"Up to CAD 35,000\/year (varies)",
+    "Duration":"Varies",
+    "Eligibility":"Citizens of eligible Francophonie countries",
+    "Deadline (Approx.)":"Varies; government-nominated",
+    "URL":"https:\/\/www.international.gc.ca\/world-monde\/study_work_travel-etude_travail_voyage\/cfsp-pcbf.aspx?lang=eng"
+  },
+  {
+    "Scholarship Name":"Dalhousie University Graduate Scholarships",
+    "Sponsor":"Dalhousie University",
+    "Level":"Master's\/PhD",
+    "Amount":"Up to CAD 30,000 (varies)",
+    "Duration":"Varies",
+    "Eligibility":"International graduate students with research excellence",
+    "Deadline (Approx.)":"Varies (Dec\/Jan typical)",
+    "URL":"https:\/\/www.dal.ca\/"
+  },
+  {
+    "Scholarship Name":"McGill Entrance Scholarships (Major Entrance Scholarships)",
+    "Sponsor":"McGill University",
+    "Level":"Undergraduate",
+    "Amount":"CAD 3,000–20,000 (various scholarships)",
+    "Duration":"1–4 years",
+    "Eligibility":"Academic excellence; international students eligible",
+    "Deadline (Approx.)":"Jan (varies)",
+    "URL":"https:\/\/www.mcgill.ca\/undergraduate-admissions\/scholarships"
+  },
+  {
+    "Scholarship Name":"McMaster International Entrance Awards",
+    "Sponsor":"McMaster University",
+    "Level":"Undergraduate",
+    "Amount":"Varies (tuition scholarships)",
+    "Duration":"Varies",
+    "Eligibility":"International applicants with strong academic records",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.mcmaster.ca\/"
+  },
+  {
+    "Scholarship Name":"Queen's University International Scholarships (Major Entrance)",
+    "Sponsor":"Queen's University",
+    "Level":"Undergraduate",
+    "Amount":"Varies (entrance scholarships)",
+    "Duration":"Varies",
+    "Eligibility":"High academic achievement; international students eligible",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.queensu.ca\/"
+  },
+  {
+    "Scholarship Name":"University of Alberta International Entrance Scholarships",
+    "Sponsor":"University of Alberta",
+    "Level":"Undergraduate",
+    "Amount":"Varies (tuition awards)",
+    "Duration":"Varies",
+    "Eligibility":"Top international applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.ualberta.ca\/"
+  },
+  {
+    "Scholarship Name":"University of Calgary International Entrance Scholarships",
+    "Sponsor":"University of Calgary",
+    "Level":"Undergraduate",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"International students with strong academics",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.ucalgary.ca\/"
+  },
+  {
+    "Scholarship Name":"York University International Student Scholarships",
+    "Sponsor":"York University",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"International applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.yorku.ca\/"
+  },
+  {
+    "Scholarship Name":"University of Ottawa International Student Scholarships",
+    "Sponsor":"University of Ottawa",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"International applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.uottawa.ca\/"
+  },
+  {
+    "Scholarship Name":"Concordia University International Undergraduate Awards",
+    "Sponsor":"Concordia University",
+    "Level":"Undergraduate",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"International undergraduate applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.concordia.ca\/"
+  },
+  {
+    "Scholarship Name":"Université de Montréal International Scholarships",
+    "Sponsor":"Université de Montréal",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Varies (tuition exemptions up to CAD27,300)",
+    "Duration":"Varies",
+    "Eligibility":"International students; program-specific",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.umontreal.ca\/"
+  },
+  {
+    "Scholarship Name":"University of Saskatchewan International Scholarships",
+    "Sponsor":"University of Saskatchewan",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Varies (tuition awards & entrance scholarships)",
+    "Duration":"Varies",
+    "Eligibility":"International applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.usask.ca\/"
+  },
+  {
+    "Scholarship Name":"Memorial University International Undergraduate Entrance Scholarships",
+    "Sponsor":"Memorial University of Newfoundland",
+    "Level":"Undergraduate",
+    "Amount":"Varies (tuition awards)",
+    "Duration":"Varies",
+    "Eligibility":"High-achieving international students",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.mun.ca\/"
+  },
+  {
+    "Scholarship Name":"University of Victoria International Entrance Scholarships",
+    "Sponsor":"University of Victoria",
+    "Level":"Undergraduate",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"International applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.uvic.ca\/"
+  },
+  {
+    "Scholarship Name":"Trinity Western University International Scholarships",
+    "Sponsor":"Trinity Western University",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"International applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.twu.ca\/"
+  },
+  {
+    "Scholarship Name":"Mitacs Elevate (postdoc) & Accelerate (research internships)",
+    "Sponsor":"Mitacs",
+    "Level":"Graduate\/Postgraduate",
+    "Amount":"Stipends + project funding (varies)",
+    "Duration":"4-24 months (varies)",
+    "Eligibility":"Graduate students and postdocs; depends on program",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.mitacs.ca\/"
+  },
+  {
+    "Scholarship Name":"NSERC Postgraduate Scholarships (PGS) -- Note: often for Canadians\/permanent residents",
+    "Sponsor":"NSERC",
+    "Level":"Master's\/PhD",
+    "Amount":"Varies (e.g., CAD17,500–35,000)",
+    "Duration":"Varies",
+    "Eligibility":"Science & engineering students (note: citizenship rules apply)",
+    "Deadline (Approx.)":"Varies (annual)",
+    "URL":"https:\/\/www.nserc-crsng.gc.ca\/"
+  },
+  {
+    "Scholarship Name":"SSHRC Doctoral & Master's Awards (note: citizenship rules)",
+    "Sponsor":"SSHRC",
+    "Level":"Master's\/PhD",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"Social sciences & humanities students (check eligibility for international scholars)",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.sshrc-crsh.gc.ca\/"
+  },
+  {
+    "Scholarship Name":"University Canada West International Entrance Scholarships",
+    "Sponsor":"University Canada West",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Up to CAD20,000 (UG) \/ CAD10,000 (Grad)",
+    "Duration":"Varies",
+    "Eligibility":"International applicants",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.ucanwest.ca\/"
+  },
+  {
+    "Scholarship Name":"Public & Private Foundations (e.g., Rotary, Fulbright Canada for US citizens)",
+    "Sponsor":"Various (Rotary, Fulbright Canada)",
+    "Level":"Undergrad\/Grad\/Postdoc",
+    "Amount":"Varies",
+    "Duration":"Varies",
+    "Eligibility":"Program-specific (e.g., Fulbright for US citizens)",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/www.fulbright.ca\/"
+  },
+  {
+    "Scholarship Name":"University of Toronto International Scholarships (various)",
+    "Sponsor":"University of Toronto",
+    "Level":"Undergraduate\/Graduate",
+    "Amount":"Varies (including entrance & in-program awards)",
+    "Duration":"Varies",
+    "Eligibility":"International students (program-specific)",
+    "Deadline (Approx.)":"Varies",
+    "URL":"https:\/\/future.utoronto.ca\/finances\/"
+  }
+]
