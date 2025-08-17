@@ -85,6 +85,20 @@ const programSearchResults = document.getElementById('program-search-results');
 let allPrograms = [];
 let allData = [];
 
+const accountName = document.getElementById('account-name');
+const accountEmail = document.getElementById('account-email');
+const accountAvatar = document.getElementById('account-avatar');
+const changePasswordBtn = document.getElementById('change-password-btn');
+const signoutBtnAccount = document.getElementById('signout-btn');
+const deleteAccountBtn = document.getElementById('delete-account-btn');
+const accountStatus = document.getElementById('account-status');
+
+const openAccountModalBtn = document.querySelector('button.nav-link[data-page="account"]');
+const accountModal = document.getElementById('account-modal');
+const closeAccountModalBtn = document.getElementById('close-account-modal');
+const chooseFreeBtn = document.getElementById('choose-free-btn');
+const choosePremiumBtn = document.getElementById('choose-premium-btn');
+
 /* ============ STATE ============= */
 let isSignUp = false;
 let currentUser = null;
@@ -130,6 +144,8 @@ onAuthStateChanged(auth, (user) => {
     navigateToPage("dashboard");
     if (db) attachRealtimeListeners(user.uid);
     else renderDemoStats();
+    // Always show email from Firebase Auth in Account modal
+    if (accountEmail) accountEmail.textContent = user.email;
   } else {
     // show auth page
     pageAuth.classList.remove("hidden");
@@ -137,7 +153,44 @@ onAuthStateChanged(auth, (user) => {
     authForm.reset();
     renderDemoStats();
   }
+  if (user) {
+    if (accountName) accountName.textContent = user.displayName || user.email.split('@')[0];
+    if (accountAvatar) accountAvatar.textContent = (user.displayName || user.email || 'U')[0].toUpperCase();
+  }
 });
+
+if (changePasswordBtn) {
+  changePasswordBtn.addEventListener('click', async () => {
+    if (!auth.currentUser) return;
+    try {
+      await auth.sendPasswordResetEmail(auth.currentUser.email);
+      if (accountStatus) accountStatus.textContent = 'Password reset email sent.';
+    } catch (err) {
+      if (accountStatus) accountStatus.textContent = 'Error: ' + (err.message || err);
+    }
+  });
+}
+if (signoutBtnAccount) {
+  signoutBtnAccount.addEventListener('click', async () => {
+    try {
+      await signOut(auth);
+      if (accountStatus) accountStatus.textContent = 'Signed out.';
+    } catch (err) {
+      if (accountStatus) accountStatus.textContent = 'Error: ' + (err.message || err);
+    }
+  });
+}
+if (deleteAccountBtn) {
+  deleteAccountBtn.addEventListener('click', async () => {
+    if (!auth.currentUser) return;
+    try {
+      await auth.currentUser.delete();
+      if (accountStatus) accountStatus.textContent = 'Account deleted.';
+    } catch (err) {
+      if (accountStatus) accountStatus.textContent = 'Error: ' + (err.message || err);
+    }
+  });
+}
 
 /* ============ NAVIGATION ============= */
 navLinks.forEach(btn => {
@@ -563,6 +616,17 @@ function renderCheckWizard(){
 
 /* ============ Realtime listeners (DB) ============ */
 function attachRealtimeListeners(uid){
+  // Fetch user profile
+  const userProfileRef = ref(db, `profiles/${uid}`);
+  onValue(userProfileRef, (snapshot) => {
+    const profile = snapshot.val();
+    if (profile) {
+      if (accountName) accountName.textContent = profile.fullname || profile.name || (currentUser?.displayName || currentUser?.email.split('@')[0] || 'Your Name');
+      if (accountEmail) accountEmail.textContent = currentUser?.email || profile.email || 'your@email.com';
+      if (accountAvatar) accountAvatar.textContent = (profile.fullname || profile.name || currentUser?.displayName || currentUser?.email || 'U')[0].toUpperCase();
+    }
+  });
+
   // applications for user
   const appsRef = ref(db, `applications/${uid}`);
   onValue(appsRef, snap => {
@@ -1033,3 +1097,29 @@ document.querySelectorAll('.modal-backdrop').forEach(el => {
     modalAccommodation.setAttribute('aria-hidden', 'true');
   });
 });
+
+/* ============ ACCOUNT MODAL ============ */
+if (openAccountModalBtn && accountModal && closeAccountModalBtn) {
+  openAccountModalBtn.addEventListener('click', () => {
+    accountModal.classList.remove('hidden');
+    accountModal.setAttribute('aria-hidden', 'false');
+  });
+  closeAccountModalBtn.addEventListener('click', () => {
+    accountModal.classList.add('hidden');
+    accountModal.setAttribute('aria-hidden', 'true');
+  });
+  accountModal.querySelector('.modal-backdrop').addEventListener('click', () => {
+    accountModal.classList.add('hidden');
+    accountModal.setAttribute('aria-hidden', 'true');
+  });
+}
+if (chooseFreeBtn) {
+  chooseFreeBtn.addEventListener('click', () => {
+    if (accountStatus) accountStatus.textContent = 'You have selected the FREE subscription.';
+  });
+}
+if (choosePremiumBtn) {
+  choosePremiumBtn.addEventListener('click', () => {
+    if (accountStatus) accountStatus.textContent = 'You have selected the PREMIUM subscription.';
+  });
+}
