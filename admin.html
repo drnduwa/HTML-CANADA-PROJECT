@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canada Admin Portal</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  body { background: #f3f6fa; }
+  .admin-login { max-width: 400px; margin: 60px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #1e3a8a22; padding: 32px; }
+  .admin-dashboard { max-width: 1100px; margin: 60px auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px #1e3a8a22; padding: 48px 40px; }
+    .admin-login h2, .admin-dashboard h2 { color: #1E3A8A; margin-bottom: 18px; }
+    .admin-login input, .admin-dashboard input, .admin-dashboard select { width: 100%; padding: 10px; margin-bottom: 14px; border-radius: 6px; border: 1px solid #bcd; }
+    .admin-login button, .admin-dashboard button { background: #1976d2; color: #fff; border: none; padding: 10px 22px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .admin-login .error { color: #d32f2f; margin-bottom: 10px; }
+    .admin-dashboard { display: none; }
+    .admin-section { margin-bottom: 32px; }
+  .admin-section h3 { color: #1976d2; margin-bottom: 18px; font-size: 1.3em; }
+    .admin-table { width: 100%; border-collapse: collapse; background: #f9fbfd; }
+  .admin-table th, .admin-table td { border: 1px solid #bcd; padding: 16px 12px; text-align: left; font-size: 1.08em; }
+  .admin-table th { background: #e3eaf5; font-size: 1.12em; }
+  .admin-table tr:nth-child(even) { background: #f3f6fa; }
+  </style>
+</head>
+<body>
+  <div class="admin-login" id="admin-login">
+    <h2>Admin Portal Login</h2>
+    <div class="error" id="admin-login-error"></div>
+    <input type="text" id="admin-username" placeholder="Username" autocomplete="username">
+    <input type="password" id="admin-password" placeholder="Password" autocomplete="current-password">
+    <button id="admin-login-btn">Login</button>
+  </div>
+  <div class="admin-dashboard" id="admin-dashboard">
+    <h2>Canada Admin Dashboard</h2>
+    <div class="admin-section">
+      <h3>Student Profiles</h3>
+      <table class="admin-table" id="admin-students-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subscription</th>
+            <th>City of Birth</th>
+            <th>Country of Origin</th>
+            <th>Country of Residence</th>
+            <th>Date of Birth</th>
+            <th>High School Year</th>
+            <th>ID Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="admin-section">
+      <h3>Applications</h3>
+      <table class="admin-table" id="admin-applications-table">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Education Level</th>
+            <th>GPA</th>
+            <th>Intake</th>
+            <th>Intended Program</th>
+            <th>Last School</th>
+            <th>Program Level</th>
+            <th>Submitted At</th>
+            <th>Submitted By</th>
+            <th>Documents</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="admin-section">
+      <h3>Scholarships</h3>
+      <table class="admin-table" id="admin-scholarships-table">
+        <thead>
+          <tr><th>Name</th><th>Sponsor</th><th>Amount</th><th>Deadline</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <button id="admin-logout-btn" style="background:#d32f2f;">Logout</button>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>
