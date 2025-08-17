@@ -99,6 +99,11 @@ const closeAccountModalBtn = document.getElementById('close-account-modal');
 const chooseFreeBtn = document.getElementById('choose-free-btn');
 const choosePremiumBtn = document.getElementById('choose-premium-btn');
 
+const openScholarshipsModalBtn = document.getElementById('open-scholarships-modal');
+const scholarshipsModal = document.getElementById('scholarships-modal');
+const closeScholarshipsModalBtn = document.getElementById('close-scholarships-modal');
+const scholarshipsList = document.getElementById('scholarships-list');
+
 /* ============ STATE ============= */
 let isSignUp = false;
 let currentUser = null;
@@ -1122,4 +1127,46 @@ if (choosePremiumBtn) {
   choosePremiumBtn.addEventListener('click', () => {
     if (accountStatus) accountStatus.textContent = 'You have selected the PREMIUM subscription.';
   });
+}
+
+/* ============ SCHOLARSHIPS MODAL ============ */
+if (openScholarshipsModalBtn && scholarshipsModal && closeScholarshipsModalBtn) {
+  openScholarshipsModalBtn.addEventListener('click', () => {
+    scholarshipsModal.classList.remove('hidden');
+    scholarshipsModal.setAttribute('aria-hidden', 'false');
+    loadScholarships();
+  });
+  closeScholarshipsModalBtn.addEventListener('click', () => {
+    scholarshipsModal.classList.add('hidden');
+    scholarshipsModal.setAttribute('aria-hidden', 'true');
+  });
+  scholarshipsModal.querySelector('.modal-backdrop').addEventListener('click', () => {
+    scholarshipsModal.classList.add('hidden');
+    scholarshipsModal.setAttribute('aria-hidden', 'true');
+  });
+}
+
+async function loadScholarships() {
+  if (!scholarshipsList) return;
+  scholarshipsList.innerHTML = '<div class="muted">Loading scholarships…</div>';
+  try {
+    const resp = await fetch('scholarships.json');
+    const data = await resp.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      scholarshipsList.innerHTML = '<div class="muted">No scholarships found.</div>';
+      return;
+    }
+    scholarshipsList.innerHTML = data.map(s => `
+      <div style="background:#f3f6fa;padding:18px;border-radius:12px;margin-bottom:18px;box-shadow:0 2px 8px #1e3a8a22;">
+        <div style="font-size:1.2em;font-weight:700;color:#1E3A8A;">${s["Scholarship Name"]}</div>
+        <div style="color:#555;margin-bottom:6px;">Sponsor: <strong>${s.Sponsor}</strong></div>
+        <div>Level: ${s.Level} | Amount: ${s.Amount} | Duration: ${s.Duration}</div>
+        <div style="margin:8px 0;">Eligibility: <span style="color:#1976d2;">${s.Eligibility}</span></div>
+        <div>Deadline: <strong>${s["Deadline (Approx.)"]}</strong></div>
+        <a href="${s.URL}" target="_blank" style="color:#38BDF8;text-decoration:underline;">More info</a>
+      </div>
+    `).join('');
+  } catch (err) {
+    scholarshipsList.innerHTML = '<div class="muted">Failed to load scholarships.</div>';
+  }
 }

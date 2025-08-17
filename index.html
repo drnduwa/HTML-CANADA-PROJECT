@@ -70,6 +70,7 @@
   <button class="nav-link" data-page="faq">FAQ & Help Center</button>
   <button class="nav-link" id="open-accommodation-modal">Accommodation</button>
   <a class="nav-link" href="https://wa.me/26879421083" target="_blank" style="text-align:left;">Contact Us</a>
+  <button class="nav-link" id="open-scholarships-modal">Scholarships</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -204,7 +205,7 @@
       <div style="display:flex;flex-direction:column;gap:12px;">
         <button id="change-password-btn" class="btn accent" style="width:100%;">Change Password</button>
         <button id="signout-btn" class="btn ghost" style="width:100%;">Sign Out</button>
-        <button id="delete-account-btn" class="btn danger" style="width:100%;">Delete Account</button>
+        <button id="delete-account-btn" class="btn danger" style="width:100%;"></button>
       </div>
       <div id="account-status" class="muted" style="margin-top:18px;"></div>
     </div>
@@ -320,14 +321,14 @@
   <div class="modal-backdrop" data-close="true" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,58,138,0.4);z-index:1000;"></div>
   <div class="modal-card" style="max-width:600px;min-width:350px;width:95vw;max-height:90vh;overflow-y:auto;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:18px;box-shadow:0 12px 48px #1e3a8a33;z-index:1001;padding:40px 32px;">
     <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
-      <h2 style="margin:0;font-size:2em;color:#1E3A8A;font-weight:700;letter-spacing:0.5px;">Account</h2>
+      <h2 style="margin:0;font-size:2em;color:#1E3A8A;font-weight:700;letter-spacing:0.5px;">My Account</h2>
       <button class="close" id="close-account-modal" style="background:none;border:none;font-size:2em;cursor:pointer;line-height:1;">&times;</button>
     </div>
     <div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">
-      <div class="avatar" id="account-avatar" style="width:70px;height:70px;background:#1976d2;color:#fff;font-size:2.2em;border-radius:50%;display:flex;align-items:center;justify-content:center;">U</div>
+      
       <div>
-        <div id="account-name" style="font-size:1.3em;font-weight:600;">Your Name</div>
-        <div id="account-email" style="color:#555;font-size:1em;">your@email.com</div>
+        <div id="account-name" style="font-size:1.3em;font-weight:600;"></div>
+        <div id="account-email" style="color:#555;font-size:1em;"></div>
       </div>
     </div>
     <hr style="margin:18px 0;">
@@ -349,9 +350,21 @@
     <div style="display:flex;flex-direction:column;gap:12px;">
       <button id="change-password-btn" class="btn accent" style="width:100%;">Change Password</button>
       <button id="signout-btn" class="btn ghost" style="width:100%;">Sign Out</button>
-      <button id="delete-account-btn" class="btn danger" style="width:100%;">Delete Account</button>
+      <button id="delete-account-btn" class="btn danger" style="width:100%;"></button>
     </div>
     <div id="account-status" class="muted" style="margin-top:18px;"></div>
+  </div>
+</div>
+
+  <!-- Scholarships Modal Popup -->
+<div id="scholarships-modal" class="modal hidden" aria-hidden="true">
+  <div class="modal-backdrop" data-close="true" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,58,138,0.4);z-index:1000;"></div>
+  <div class="modal-card" style="max-width:700px;min-width:350px;width:95vw;max-height:90vh;overflow-y:auto;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:18px;box-shadow:0 12px 48px #1e3a8a33;z-index:1001;padding:40px 32px;">
+    <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <h2 style="margin:0;font-size:2em;color:#1E3A8A;font-weight:700;letter-spacing:0.5px;">Available Scholarships</h2>
+      <button class="close" id="close-scholarships-modal" style="background:none;border:none;font-size:2em;cursor:pointer;line-height:1;">&times;</button>
+    </div>
+    <div id="scholarships-list" style="margin-top:10px;"></div>
   </div>
 </div>
 
